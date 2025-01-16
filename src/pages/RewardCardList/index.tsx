@@ -1,9 +1,5 @@
-
-
 const RewardCardList = () => {
-  return (
-    <div>RewardCardList</div>
-  )
-}
+  return <div>RewardCardList</div>;
+};
 
-export default RewardCardList
+export default RewardCardList;

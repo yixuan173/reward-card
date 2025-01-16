@@ -7,11 +7,11 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/list' element={<RewardCardList />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/list" element={<RewardCardList />} />
       </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
