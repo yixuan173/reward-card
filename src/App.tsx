@@ -1,3 +1,4 @@
+import { Button, } from '@chakra-ui/react'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <section>
       <button>建立集點卡</button>
     </section>
+    <Button colorScheme='blue'>Button</Button>
     </>
   )
 }
