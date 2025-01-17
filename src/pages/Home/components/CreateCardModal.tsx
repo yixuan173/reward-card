@@ -1,3 +1,4 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Modal,
   ModalOverlay,
@@ -28,6 +29,7 @@ import {
   Tbody,
   Td,
   FormHelperText,
+  IconButton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -37,7 +39,7 @@ interface CreateCardModalProps {
 }
 
 interface RedemptionData {
-  id: string | null;
+  id: string;
   content: string;
   count: number;
 }
@@ -58,7 +60,7 @@ const initialCardFormData: CardFormData = {
 };
 
 const initialRedemptionData: RedemptionData = {
-  id: null,
+  id: '',
   content: '',
   count: 0,
 };
@@ -93,6 +95,13 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
       redemptionList: [...prev.redemptionList, newRedemption],
     }));
     setRedemptionData(initialRedemptionData);
+  };
+
+  const handleDeleteRedemption = (id: string) => {
+    setCardFormData((prev) => ({
+      ...prev,
+      redemptionList: prev.redemptionList?.filter((item) => item.id !== id),
+    }));
   };
 
   return (
@@ -174,6 +183,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
                     <Tr>
                       <Th>內容</Th>
                       <Th isNumeric>點數</Th>
+                      <Th />
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -181,6 +191,14 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
                       <Tr key={id}>
                         <Td>{content}</Td>
                         <Td isNumeric>{count}</Td>
+                        <Td width="10%" p={0}>
+                          <IconButton
+                            aria-label="Delete item"
+                            size="sm"
+                            icon={<DeleteIcon />}
+                            onClick={() => handleDeleteRedemption(id)}
+                          />
+                        </Td>
                       </Tr>
                     ))}
                   </Tbody>
