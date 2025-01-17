@@ -57,14 +57,14 @@ type CardFormData = Omit<CardData, 'id' | 'createDate' | 'currentPoints'>;
 
 const initialCardFormData: CardFormData = {
   title: '',
-  totalPoints: 0,
+  totalPoints: 10,
   redemptionList: [],
 };
 
 const initialRedemptionData: RedemptionData = {
   id: '',
   content: '',
-  points: 0,
+  points: 1,
 };
 
 const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
@@ -72,6 +72,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
   const toast = useToast();
   const [cardFormData, setCardFormData] = useState<CardFormData>(initialCardFormData);
   const [redemptionData, setRedemptionData] = useState<RedemptionData>(initialRedemptionData);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { title, totalPoints, redemptionList } = cardFormData;
   const { content, points } = redemptionData;
 
@@ -85,13 +86,27 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
     e: React.ChangeEvent<HTMLInputElement> | string | number,
     key: keyof T,
     setState: React.Dispatch<React.SetStateAction<T>>,
-  ): void =>
+  ): void => {
     setState((prev) => ({
       ...prev,
       [key]: isChangeEvent(e) ? e.target.value : e,
     }));
+    setErrors({});
+  };
+
+  const validateRedemptionForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!content.trim()) newErrors.content = '請填寫兌換內容';
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleCreateRedemption = () => {
+    if (!validateRedemptionForm()) return;
+
     const newRedemption = { ...redemptionData, id: crypto.randomUUID() };
     setCardFormData((prev) => ({
       ...prev,
@@ -107,7 +122,20 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
     }));
   };
 
+  const validateCardForm = (): boolean => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!title.trim()) newErrors.title = '請填寫集點卡名稱';
+    if (redemptionList.length === 0) newErrors.redemptionList = '請新增至少一項兌換清單';
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleCreateRewardCard = () => {
+    if (!validateCardForm()) return;
+
     try {
       const newCard = {
         ...cardFormData,
@@ -152,7 +180,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
         <ModalHeader>建立集點卡</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={!!errors.title}>
             <FormLabel>名稱：</FormLabel>
             <Input
               onChange={(e) => handleChange<CardFormData>(e, 'title', setCardFormData)}
@@ -160,14 +188,20 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               value={title}
               placeholder="請輸入集點卡名稱"
             />
+            {errors.title && (
+              <FormHelperText color="red.500" mt={0}>
+                {errors.title}
+              </FormHelperText>
+            )}
           </FormControl>
 
-          <FormControl mt={8} isRequired>
-            <FormLabel>總格子數：</FormLabel>
+          <FormControl mt={6} isRequired>
+            <FormLabel>總點數：</FormLabel>
             <Flex>
               <NumberInput
                 max={100}
                 min={10}
+                precision={0}
                 width="30%"
                 mr="1rem"
                 value={totalPoints}
@@ -183,6 +217,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               <Slider
                 flex="1"
                 focusThumbOnChange={false}
+                min={10}
                 mr={2}
                 value={totalPoints}
                 onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
@@ -195,7 +230,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
             </Flex>
           </FormControl>
 
-          <FormControl mt={8} isRequired>
+          <FormControl mt={6} isRequired isInvalid={!!errors.content}>
             <FormLabel>兌換清單：</FormLabel>
             <Input
               placeholder="請輸入兌換內容"
@@ -203,23 +238,38 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               value={content}
               onChange={(e) => handleChange<RedemptionData>(e, 'content', setRedemptionData)}
             />
+            {errors.content && (
+              <FormHelperText color="red.500" mt={0}>
+                {errors.content}
+              </FormHelperText>
+            )}
             <Flex justify="space-between" align="end">
-              <div>
-                <Input
+              <Flex align="end" gap={1}>
+                <NumberInput
+                  isInvalid={false}
                   mt={2}
+                  max={totalPoints}
+                  min={1}
+                  precision={0}
                   width="40%"
-                  type="number"
                   name="points"
                   value={points}
                   onChange={(e) => handleChange<RedemptionData>(e, 'points', setRedemptionData)}
-                />
-                {' 點'}
-              </div>
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                {'點'}
+              </Flex>
               <Button colorScheme="pink" size="sm" variant={'outline'} onClick={handleCreateRedemption}>
                 + 新增
               </Button>
             </Flex>
-            <FormHelperText mt={0}>請填寫兌換項目時，所需扣除的點數</FormHelperText>
+            <FormHelperText mt={0}>請填寫兌換項目時，需扣除的點數 (勿超過總點數)</FormHelperText>
+
             {redemptionList.length > 0 ? (
               <TableContainer mt={3}>
                 <Table>
@@ -248,6 +298,8 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
                   </Tbody>
                 </Table>
               </TableContainer>
+            ) : errors.redemptionList ? (
+              <div className="font-bold mt-6 text-center text-lg text-red-500">{errors.redemptionList}</div>
             ) : (
               <div className="font-bold mt-6 text-center underline text-lg">尚未新增兌換清單</div>
             )}
