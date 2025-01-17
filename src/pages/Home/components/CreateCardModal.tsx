@@ -1,4 +1,4 @@
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import {
   Modal,
   ModalOverlay,
@@ -30,6 +30,7 @@ import {
   Td,
   FormHelperText,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -41,36 +42,38 @@ interface CreateCardModalProps {
 interface RedemptionData {
   id: string;
   content: string;
-  count: number;
+  points: number;
 }
 interface CardData {
   id: string;
   title: string;
-  totalCount: number;
+  totalPoints: number;
+  currentPoints: number;
   redemptionList: RedemptionData[];
   createDate: Date;
 }
 
-type CardFormData = Omit<CardData, 'id' | 'createDate'>;
+type CardFormData = Omit<CardData, 'id' | 'createDate' | 'currentPoints'>;
 
 const initialCardFormData: CardFormData = {
   title: '',
-  totalCount: 0,
+  totalPoints: 0,
   redemptionList: [],
 };
 
 const initialRedemptionData: RedemptionData = {
   id: '',
   content: '',
-  count: 0,
+  points: 0,
 };
 
 const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
   const { isOpen, onClose } = props;
+  const toast = useToast();
   const [cardFormData, setCardFormData] = useState<CardFormData>(initialCardFormData);
   const [redemptionData, setRedemptionData] = useState<RedemptionData>(initialRedemptionData);
-  const { title, totalCount, redemptionList } = cardFormData;
-  const { content, count } = redemptionData;
+  const { title, totalPoints, redemptionList } = cardFormData;
+  const { content, points } = redemptionData;
 
   const isChangeEvent = (
     e: React.ChangeEvent<HTMLInputElement> | string | number,
@@ -104,6 +107,44 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
     }));
   };
 
+  const handleCreateRewardCard = () => {
+    try {
+      const newCard = {
+        ...cardFormData,
+        id: crypto.randomUUID(),
+        createDate: new Date(),
+        currentPoints: 0,
+      } as CardData;
+
+      const rewardCardList = localStorage.getItem('rewardCardList') || '[]';
+      localStorage.setItem('rewardCardList', JSON.stringify([...JSON.parse(rewardCardList), newCard]));
+
+      setCardFormData(initialCardFormData);
+      onClose();
+      toast({
+        title: '集點卡新增成功！！',
+        position: 'top',
+        status: 'success',
+        duration: 2500,
+        containerStyle: {
+          marginTop: '2rem',
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: '集點卡新增失敗，請稍後再試。',
+        position: 'top',
+        status: 'error',
+        duration: 2500,
+        containerStyle: {
+          marginTop: '2rem',
+        },
+        icon: <WarningTwoIcon mt="5px" />,
+      });
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} isCentered scrollBehavior="inside" size="sm">
       <ModalOverlay />
@@ -127,11 +168,11 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               <NumberInput
                 max={100}
                 min={10}
-                maxW="100px"
-                mr="2rem"
-                value={totalCount}
-                name="totalCount"
-                onChange={(e) => handleChange<CardFormData>(e, 'totalCount', setCardFormData)}
+                width="30%"
+                mr="1rem"
+                value={totalPoints}
+                name="totalPoints"
+                onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -142,13 +183,14 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               <Slider
                 flex="1"
                 focusThumbOnChange={false}
-                value={totalCount}
-                onChange={(e) => handleChange<CardFormData>(e, 'totalCount', setCardFormData)}
+                mr={2}
+                value={totalPoints}
+                onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
               >
                 <SliderTrack>
                   <SliderFilledTrack />
                 </SliderTrack>
-                <SliderThumb fontSize="sm" boxSize="32px" children={totalCount} />
+                <SliderThumb fontSize="sm" boxSize="32px" children={totalPoints} />
               </Slider>
             </Flex>
           </FormControl>
@@ -162,20 +204,22 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
               onChange={(e) => handleChange<RedemptionData>(e, 'content', setRedemptionData)}
             />
             <Flex justify="space-between" align="end">
-              <Input
-                mt={2}
-                width="50%"
-                placeholder="請輸入點數"
-                type="number"
-                name="count"
-                value={count}
-                onChange={(e) => handleChange<RedemptionData>(e, 'count', setRedemptionData)}
-              />
+              <div>
+                <Input
+                  mt={2}
+                  width="40%"
+                  type="number"
+                  name="points"
+                  value={points}
+                  onChange={(e) => handleChange<RedemptionData>(e, 'points', setRedemptionData)}
+                />
+                {' 點'}
+              </div>
               <Button colorScheme="pink" size="sm" variant={'outline'} onClick={handleCreateRedemption}>
                 + 新增
               </Button>
             </Flex>
-            <FormHelperText mt={0}>用於兌換項目時，所需扣除的點數</FormHelperText>
+            <FormHelperText mt={0}>請填寫兌換項目時，所需扣除的點數</FormHelperText>
             {redemptionList.length > 0 ? (
               <TableContainer mt={3}>
                 <Table>
@@ -187,10 +231,10 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {redemptionList.map(({ id, content, count }) => (
+                    {redemptionList.map(({ id, content, points }) => (
                       <Tr key={id}>
                         <Td>{content}</Td>
-                        <Td isNumeric>{count}</Td>
+                        <Td isNumeric>{points}</Td>
                         <Td width="10%" p={0}>
                           <IconButton
                             aria-label="Delete item"
@@ -214,7 +258,9 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
           <Button mr={3} onClick={onClose}>
             取消
           </Button>
-          <Button colorScheme="pink">建立</Button>
+          <Button colorScheme="pink" onClick={handleCreateRewardCard}>
+            建立
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
