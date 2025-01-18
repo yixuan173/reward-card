@@ -67,6 +67,12 @@ const initialRedemptionData: RedemptionData = {
   points: 1,
 };
 
+const isChangeEvent = (
+  e: React.ChangeEvent<HTMLInputElement> | string | number,
+): e is React.ChangeEvent<HTMLInputElement> => {
+  return typeof e === 'object' && 'target' in e;
+};
+
 const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const toast = useToast();
@@ -75,12 +81,6 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { title, totalPoints, redemptionList } = cardFormData;
   const { content, points } = redemptionData;
-
-  const isChangeEvent = (
-    e: React.ChangeEvent<HTMLInputElement> | string | number,
-  ): e is React.ChangeEvent<HTMLInputElement> => {
-    return typeof e === 'object' && 'target' in e;
-  };
 
   const handleChange = <T,>(
     e: React.ChangeEvent<HTMLInputElement> | string | number,
