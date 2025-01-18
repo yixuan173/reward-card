@@ -4,7 +4,7 @@ import { CardData } from '@/types/common';
 import { Tag, TagLabel } from '@chakra-ui/react';
 
 const RewardCardList = () => {
-  const rewardCardList = localStorage.getItem('rewardCardList') || '[]';
+  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
 
   return (
     <div className="flex flex-col items-center h-screen">
@@ -12,7 +12,7 @@ const RewardCardList = () => {
         <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
       </Link>
       <section className="mt-12 w-full grid grid-cols-2 gap-8 px-6">
-        {JSON.parse(rewardCardList).map((card: CardData) => (
+        {JSON.parse(rewardCardListFromLocalStorage).map((card: CardData) => (
           <Link to={`/${card.id}`} key={card.id}>
             <div className="w-full relative flex flex-col items-center">
               <img src="/images/card.webp" alt={card.title} className="w-11/12" />

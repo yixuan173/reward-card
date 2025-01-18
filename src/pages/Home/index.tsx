@@ -9,18 +9,17 @@ const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
-  const rewardCardList = localStorage.getItem('rewardCardList') || '[]';
+  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
+  const rewardCardList = JSON.parse(rewardCardListFromLocalStorage);
 
   const checkIsExceedCardMaxCount = () => {
-    if (JSON.parse(rewardCardList).length >= MAX_CARD_COUNT) return true;
+    if (rewardCardList.length >= MAX_CARD_COUNT) return true;
 
     return false;
   };
 
   const handleViewRewardCardList = () => {
-    const cardCount = JSON.parse(rewardCardList).length;
-
-    if (cardCount > 0) {
+    if (rewardCardList.length > 0) {
       navigate('/list');
     } else {
       toast({

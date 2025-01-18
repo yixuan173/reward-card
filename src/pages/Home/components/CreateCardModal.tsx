@@ -126,8 +126,8 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
         currentPoints: 0,
       } as CardData;
 
-      const rewardCardList = localStorage.getItem('rewardCardList') || '[]';
-      localStorage.setItem('rewardCardList', JSON.stringify([...JSON.parse(rewardCardList), newCard]));
+      const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
+      localStorage.setItem('rewardCardList', JSON.stringify([...JSON.parse(rewardCardListFromLocalStorage), newCard]));
 
       setCardFormData(initialCardFormData);
       onClose();
