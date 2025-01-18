@@ -34,26 +34,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-interface CreateCardModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-interface RedemptionData {
-  id: string;
-  content: string;
-  points: number;
-}
-interface CardData {
-  id: string;
-  title: string;
-  totalPoints: number;
-  currentPoints: number;
-  redemptionList: RedemptionData[];
-  createDate: Date;
-}
-
-type CardFormData = Omit<CardData, 'id' | 'createDate' | 'currentPoints'>;
+import type { CardData, RedemptionData } from '@/types/common';
+import type { CardFormData, CreateCardModalProps } from '@/types/pages/home';
 
 const initialCardFormData: CardFormData = {
   title: '',
