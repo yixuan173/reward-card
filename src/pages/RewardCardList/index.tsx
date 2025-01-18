@@ -13,7 +13,7 @@ const RewardCardList = () => {
       </Link>
       <section className="mt-12 w-full grid grid-cols-2 gap-8 px-6">
         {JSON.parse(rewardCardList).map((card: CardData) => (
-          <Link to={`/list/${card.id}`} key={card.id}>
+          <Link to={`/${card.id}`} key={card.id}>
             <div className="w-full relative flex flex-col items-center">
               <img src="/images/card.webp" alt={card.title} className="w-11/12" />
               <h2 className="text-2xl font-bold text-pink-600">{card.title}</h2>
