@@ -1,20 +1,38 @@
 import { Button, Stack, useDisclosure, useToast } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import CreateCardModal from './components/CreateCardModal';
-import { WarningTwoIcon } from '@chakra-ui/icons';
 
 const MAX_CARD_COUNT = 6;
 
 const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const navigate = useNavigate();
+  const rewardCardList = localStorage.getItem('rewardCardList') || '[]';
 
   const checkIsExceedCardMaxCount = () => {
-    const rewardCardList = localStorage.getItem('rewardCardList');
-    if (rewardCardList && JSON.parse(rewardCardList).length >= MAX_CARD_COUNT) return true;
+    if (JSON.parse(rewardCardList).length >= MAX_CARD_COUNT) return true;
 
     return false;
+  };
+
+  const handleViewRewardCardList = () => {
+    const cardCount = JSON.parse(rewardCardList).length;
+
+    if (cardCount > 0) {
+      navigate('/list');
+    } else {
+      toast({
+        title: '請先新增集點卡！！！',
+        position: 'top',
+        status: 'info',
+        duration: 2500,
+        containerStyle: {
+          marginTop: '2rem',
+        },
+      });
+    }
   };
 
   return (
@@ -35,7 +53,6 @@ const Home = () => {
                   containerStyle: {
                     marginTop: '2rem',
                   },
-                  icon: <WarningTwoIcon mt="5px" />,
                 });
                 return;
               }
@@ -44,11 +61,9 @@ const Home = () => {
           >
             建立集點卡
           </Button>
-          <Link to="/list">
-            <Button colorScheme="pink" size="lg" variant="outline">
-              查看集點卡
-            </Button>
-          </Link>
+          <Button colorScheme="pink" size="lg" variant="outline" onClick={handleViewRewardCardList}>
+            查看集點卡
+          </Button>
         </Stack>
       </section>
       <CreateCardModal isOpen={isOpen} onClose={onClose} />
