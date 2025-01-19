@@ -39,7 +39,7 @@ const AddPointModal: React.FC<AddPointModalProps> = (props) => {
   };
 
   return (
-    <Modal onClose={onClose} size="xs" isOpen={isOpen} isCentered>
+    <Modal onClose={onClose} size="xs" isOpen={isOpen} isCentered closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>新增點數</ModalHeader>
