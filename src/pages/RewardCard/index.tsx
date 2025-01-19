@@ -33,9 +33,9 @@ const RewardCard = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
       <div
         key={index}
-        className="w-16 h-16 border-solid border-4 rounded-xl border-pink-500 flex items-center justify-center relative"
+        className="w-16 h-16 border-solid border-4 rounded-xl border-pink-500 flex items-center justify-center relative bg-pink-100/50"
       >
-        <Text fontSize="2xl" as="b" color="pink.700" opacity={0.5}>
+        <Text fontSize="2xl" as="b" color="pink.700" opacity={0.6}>
           {index + 1}
         </Text>
         {currentPoints > index && (
@@ -54,7 +54,7 @@ const RewardCard = () => {
       </Link>
       <section className="mt-12 w-full px-6">
         <div
-          className="border-solid border-4 border-pink-500 rounded-xl p-4 flex flex-col items-center"
+          className="border-solid border-4 border-pink-500 rounded-xl p-4 flex flex-col items-center "
           onClick={() => {
             if (currentPoints < totalPoints) {
               onOpen();

@@ -6,7 +6,7 @@ import RewardCard from '@pages/RewardCard';
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-pink-50/50">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/list" element={<RewardCardList />} />
