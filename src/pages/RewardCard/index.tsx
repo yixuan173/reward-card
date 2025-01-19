@@ -9,6 +9,20 @@ const getInitialCardData = (cardId: string) => {
   return JSON.parse(rewardCardListFromLocalStorage).find((card: CardData) => card.id === cardId);
 };
 
+const updateCardListToLocalStorage = (cardId: string, point: number) => {
+  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
+  const rewardCardList = JSON.parse(rewardCardListFromLocalStorage);
+
+  const updatedRewardCardList = rewardCardList.map((card: CardData) => {
+    if (card.id === cardId) {
+      return { ...card, currentPoints: card.currentPoints + point };
+    }
+    return card;
+  });
+
+  localStorage.setItem('rewardCardList', JSON.stringify(updatedRewardCardList));
+};
+
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,14 +30,12 @@ const RewardCard = () => {
   const { totalPoints, currentPoints } = currentCardData || {};
 
   const handleAddPoint = (point: number) => {
-    setCurrentCardData((prev) => {
-      return { ...prev, currentPoints: prev.currentPoints + point };
-    });
+    setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + point }));
+
+    updateCardListToLocalStorage(cardId, point);
 
     onClose();
   };
-
-  console.log(currentCardData);
 
   const getPointsElements = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
