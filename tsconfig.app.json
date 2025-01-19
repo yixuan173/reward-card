@@ -32,7 +32,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@pages/*": ["./src/pages/*"],
-      "@type/*": ["./src/types/*"]
+      "@type/*": ["./src/types/*"],
+      "@util/*": ["./src/util/*"]
     }
   }
 }

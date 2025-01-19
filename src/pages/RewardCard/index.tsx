@@ -4,24 +4,11 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AddPointModal from './components/AddPointModal';
 import ActionButtons from './components/ActionButtons';
+import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
 
 const getInitialCardData = (cardId: string) => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
   return JSON.parse(rewardCardListFromLocalStorage).find((card: CardData) => card.id === cardId);
-};
-
-const updateCardListToLocalStorage = (cardId: string, point: number) => {
-  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
-  const rewardCardList = JSON.parse(rewardCardListFromLocalStorage);
-
-  const updatedRewardCardList = rewardCardList.map((card: CardData) => {
-    if (card.id === cardId) {
-      return { ...card, currentPoints: card.currentPoints + point };
-    }
-    return card;
-  });
-
-  localStorage.setItem('rewardCardList', JSON.stringify(updatedRewardCardList));
 };
 
 const RewardCard = () => {
@@ -32,7 +19,6 @@ const RewardCard = () => {
 
   const handleAddPoint = (point: number) => {
     setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + point }));
-
     updateCardListToLocalStorage(cardId, point);
 
     onClose();
