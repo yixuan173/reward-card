@@ -33,7 +33,8 @@
       "@/*": ["./src/*"],
       "@pages/*": ["./src/pages/*"],
       "@type/*": ["./src/types/*"],
-      "@util/*": ["./src/util/*"]
+      "@util/*": ["./src/util/*"],
+      "@components/*": ["./src/components/*"]
     }
   }
 }
