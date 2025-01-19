@@ -31,7 +31,7 @@ const RedemptionListModal: React.FC<RedemptionListModalProps> = (props) => {
   const toast = useToast();
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { redemptionList, currentPoints } = currentCardData;
-  const sortedRedemptionList = redemptionList.sort((a, b) => b.points - a.points);
+  const sortedRedemptionList = redemptionList.sort((a, b) => a.points - b.points);
 
   const handleRedeem = (points: number) => {
     if (currentPoints >= points) {
