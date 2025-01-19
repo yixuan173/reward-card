@@ -2,6 +2,7 @@ import { DeleteIcon, EditIcon, StarIcon } from '@chakra-ui/icons';
 import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import DeleteCardModal from './DeleteCardModal';
 import EditCardModal from './EditCardModal';
+import RedemptionListModal from './RedemptionListModal';
 
 const ActionButtons = () => {
   const { isOpen: isOpenDeleteModal, onOpen: onOpenDeleteModal, onClose: onCloseDeleteModal } = useDisclosure();
@@ -15,7 +16,7 @@ const ActionButtons = () => {
   return (
     <>
       <Flex mb={2} justifyContent={'space-between'} gap={6}>
-        <Button leftIcon={<StarIcon />} colorScheme="pink" flexGrow={1}>
+        <Button leftIcon={<StarIcon />} colorScheme="pink" flexGrow={1} onClick={() => onOpenRedemptionListModal()}>
           兌換獎勵
         </Button>
         <div>
@@ -36,6 +37,7 @@ const ActionButtons = () => {
       </Flex>
       <DeleteCardModal isOpen={isOpenDeleteModal} onClose={onCloseDeleteModal} />
       <EditCardModal isOpen={isOpenEditModal} onClose={onCloseEditModal} />
+      <RedemptionListModal isOpen={isOpenRedemptionListModal} onClose={onCloseRedemptionListModal} />
     </>
   );
 };
