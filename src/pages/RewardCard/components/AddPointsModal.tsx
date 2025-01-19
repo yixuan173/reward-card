@@ -21,21 +21,32 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-interface AddPointModalProps {
+import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
+import { useParams } from 'react-router-dom';
+
+interface AddPointsModalProps {
   isOpen: boolean;
   currentCardData: CardData;
   onClose: () => void;
-  handleAddPoint: (point: number) => void;
+  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
 }
 
-const AddPointModal: React.FC<AddPointModalProps> = (props) => {
-  const { isOpen, onClose, handleAddPoint, currentCardData } = props;
+const AddPointsModal: React.FC<AddPointsModalProps> = (props) => {
+  const { isOpen, onClose, setCurrentCardData, currentCardData } = props;
+  const { cardId = '' } = useParams<{ cardId: string }>();
   const { totalPoints, currentPoints } = currentCardData;
-  const [earnPoint, setEarnPoint] = useState(1);
+  const [points, setPoints] = useState(1);
 
-  const handleChange = (point: number | string) => {
-    const numberPoint = typeof point === 'string' ? parseInt(point) : point;
-    setEarnPoint(numberPoint);
+  const handleChange = (points: number | string) => {
+    const numberPoints = typeof points === 'string' ? parseInt(points) : points;
+    setPoints(numberPoints);
+  };
+
+  const handleAddPoints = (points: number) => {
+    setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + points }));
+    updateCardListToLocalStorage(cardId, points);
+
+    onClose();
   };
 
   return (
@@ -48,13 +59,7 @@ const AddPointModal: React.FC<AddPointModalProps> = (props) => {
         <ModalBody>
           <Flex direction="column" gap={4}>
             請輸入要增加的點數
-            <NumberInput
-              min={1}
-              max={totalPoints - currentPoints}
-              maxW="100px"
-              value={earnPoint}
-              onChange={handleChange}
-            >
+            <NumberInput min={1} max={totalPoints - currentPoints} maxW="100px" value={points} onChange={handleChange}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -67,13 +72,13 @@ const AddPointModal: React.FC<AddPointModalProps> = (props) => {
               width="95%"
               flex="1"
               focusThumbOnChange={false}
-              value={earnPoint}
+              value={points}
               onChange={handleChange}
             >
               <SliderTrack>
                 <SliderFilledTrack />
               </SliderTrack>
-              <SliderThumb fontSize="sm" boxSize="32px" children={earnPoint} />
+              <SliderThumb fontSize="sm" boxSize="32px" children={points} />
             </Slider>
           </Flex>
         </ModalBody>
@@ -85,8 +90,8 @@ const AddPointModal: React.FC<AddPointModalProps> = (props) => {
           <Button
             colorScheme="pink"
             onClick={() => {
-              handleAddPoint(earnPoint);
-              setEarnPoint(1);
+              handleAddPoints(points);
+              setPoints(1);
             }}
           >
             蓋章
@@ -97,4 +102,4 @@ const AddPointModal: React.FC<AddPointModalProps> = (props) => {
   );
 };
 
-export default AddPointModal;
+export default AddPointsModal;

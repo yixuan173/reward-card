@@ -2,9 +2,8 @@ import { CardData } from '@/types/common';
 import { Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import AddPointModal from './components/AddPointModal';
+import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
-import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
 
 const getInitialCardData = (cardId: string) => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
@@ -17,14 +16,7 @@ const RewardCard = () => {
   const [currentCardData, setCurrentCardData] = useState<CardData>(getInitialCardData(cardId));
   const { totalPoints, currentPoints } = currentCardData || {};
 
-  const handleAddPoint = (point: number) => {
-    setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + point }));
-    updateCardListToLocalStorage(cardId, point);
-
-    onClose();
-  };
-
-  const getPointsElements = () => {
+  const getPointElements = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
       <div
         key={index}
@@ -69,11 +61,11 @@ const RewardCard = () => {
               }}
             >
               <img src="/images/cardHeader.gif" className="w-full  object-cover" />
-              <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
-              <AddPointModal
+              <div className="grid grid-cols-5 gap-1">{getPointElements()}</div>
+              <AddPointsModal
                 isOpen={isOpen}
                 onClose={onClose}
-                handleAddPoint={handleAddPoint}
+                setCurrentCardData={setCurrentCardData}
                 currentCardData={currentCardData}
               />
             </div>
