@@ -12,15 +12,11 @@ const getInitialCardData = (cardId: string) => {
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [currentCardData, setCurrentCardData] = useState<CardData | null>(getInitialCardData(cardId));
-
-  if (!currentCardData) return null;
-
-  const { totalPoints, currentPoints } = currentCardData;
+  const [currentCardData, setCurrentCardData] = useState<CardData>(getInitialCardData(cardId));
+  const { totalPoints, currentPoints } = currentCardData || {};
 
   const handleAddPoint = (point: number) => {
     setCurrentCardData((prev) => {
-      if (!prev) return null;
       return { ...prev, currentPoints: prev.currentPoints + point };
     });
 
@@ -53,24 +49,35 @@ const RewardCard = () => {
         <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
       </Link>
       <section className="mt-12 w-full px-5">
-        <div
-          className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
-          onClick={() => {
-            if (currentPoints < totalPoints) {
-              onOpen();
-            }
-          }}
-        >
-          <img src="/images/cardHeader.gif" className="w-full  object-cover" />
-          <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
-        </div>
+        {!currentCardData ? (
+          <div>
+            <div className="font-bold mt-6 text-center text-lg">
+              查無此集點卡，
+              <Link to="/" className="underline">
+                返回首頁
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
+            onClick={() => {
+              if (currentPoints < totalPoints) {
+                onOpen();
+              }
+            }}
+          >
+            <img src="/images/cardHeader.gif" className="w-full  object-cover" />
+            <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
+            <AddPointModal
+              isOpen={isOpen}
+              onClose={onClose}
+              handleAddPoint={handleAddPoint}
+              currentCardData={currentCardData}
+            />
+          </div>
+        )}
       </section>
-      <AddPointModal
-        isOpen={isOpen}
-        onClose={onClose}
-        handleAddPoint={handleAddPoint}
-        currentCardData={currentCardData}
-      />
     </div>
   );
 };
