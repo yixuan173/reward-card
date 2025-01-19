@@ -59,7 +59,7 @@ const RewardCard = () => {
           </div>
         ) : (
           <>
-            <ActionButtons />
+            <ActionButtons currentCardData={currentCardData} setCurrentCardData={setCurrentCardData} />
             <div
               className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
               onClick={() => {

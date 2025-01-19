@@ -1,10 +1,17 @@
 import { DeleteIcon, EditIcon, StarIcon } from '@chakra-ui/icons';
 import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
+
 import DeleteCardModal from './DeleteCardModal';
 import EditCardModal from './EditCardModal';
 import RedemptionListModal from './RedemptionListModal';
+import type { CardData } from '@/types/common';
 
-const ActionButtons = () => {
+interface ActionButtonsProps {
+  currentCardData: CardData;
+  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
+}
+const ActionButtons: React.FC<ActionButtonsProps> = (props) => {
+  const { currentCardData, setCurrentCardData } = props;
   const { isOpen: isOpenDeleteModal, onOpen: onOpenDeleteModal, onClose: onCloseDeleteModal } = useDisclosure();
   const { isOpen: isOpenEditModal, onOpen: onOpenEditModal, onClose: onCloseEditModal } = useDisclosure();
   const {
@@ -37,7 +44,12 @@ const ActionButtons = () => {
       </Flex>
       <DeleteCardModal isOpen={isOpenDeleteModal} onClose={onCloseDeleteModal} />
       <EditCardModal isOpen={isOpenEditModal} onClose={onCloseEditModal} />
-      <RedemptionListModal isOpen={isOpenRedemptionListModal} onClose={onCloseRedemptionListModal} />
+      <RedemptionListModal
+        isOpen={isOpenRedemptionListModal}
+        onClose={onCloseRedemptionListModal}
+        currentCardData={currentCardData}
+        setCurrentCardData={setCurrentCardData}
+      />
     </>
   );
 };
