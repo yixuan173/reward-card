@@ -33,9 +33,9 @@ const RewardCard = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
       <div
         key={index}
-        className="w-16 h-16 border-solid border-4 rounded-xl border-pink-500 flex items-center justify-center relative bg-pink-100/50"
+        className="w-14 h-14 border-solid border-2 rounded-xl border-pink-500 flex items-center justify-center relative bg-pink-100/50"
       >
-        <Text fontSize="2xl" as="b" color="pink.700" opacity={0.6}>
+        <Text fontSize="xl" as="b" color="pink.700" opacity={0.6}>
           {index + 1}
         </Text>
         {currentPoints > index && (
@@ -52,16 +52,16 @@ const RewardCard = () => {
       <Link to="/">
         <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
       </Link>
-      <section className="mt-12 w-full px-6">
+      <section className="mt-12 w-full px-5">
         <div
-          className="border-solid border-4 border-pink-500 rounded-xl p-4 flex flex-col items-center "
+          className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
           onClick={() => {
             if (currentPoints < totalPoints) {
               onOpen();
             }
           }}
         >
-          <img src="/images/cardHeader.gif" className="w-full max-h-[200px] object-cover" />
+          <img src="/images/cardHeader.gif" className="w-full  object-cover" />
           <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
         </div>
       </section>
