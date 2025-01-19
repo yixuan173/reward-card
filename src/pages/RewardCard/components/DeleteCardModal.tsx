@@ -31,7 +31,7 @@ const DeleteCardModal: React.FC<DeleteCardModalProps> = (props) => {
     <Modal onClose={onClose} isOpen={isOpen} isCentered size="xs" closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>提示</ModalHeader>
+        <ModalHeader>刪除</ModalHeader>
 
         <ModalBody>是否要刪除集點卡？</ModalBody>
 

@@ -1,6 +1,7 @@
 import { DeleteIcon, EditIcon, StarIcon } from '@chakra-ui/icons';
 import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import DeleteCardModal from './DeleteCardModal';
+import EditCardModal from './EditCardModal';
 
 const ActionButtons = () => {
   const { isOpen: isOpenDeleteModal, onOpen: onOpenDeleteModal, onClose: onCloseDeleteModal } = useDisclosure();
@@ -18,7 +19,13 @@ const ActionButtons = () => {
           兌換獎勵
         </Button>
         <div>
-          <IconButton colorScheme="blue" aria-label="Edit data" icon={<EditIcon />} mr={1} />
+          <IconButton
+            colorScheme="blue"
+            aria-label="Edit data"
+            icon={<EditIcon />}
+            mr={1}
+            onClick={() => onOpenEditModal()}
+          />
           <IconButton
             colorScheme="red"
             aria-label="Delete data"
@@ -28,6 +35,7 @@ const ActionButtons = () => {
         </div>
       </Flex>
       <DeleteCardModal isOpen={isOpenDeleteModal} onClose={onCloseDeleteModal} />
+      <EditCardModal isOpen={isOpenEditModal} onClose={onCloseEditModal} />
     </>
   );
 };
