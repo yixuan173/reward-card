@@ -3,6 +3,7 @@ import { Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AddPointModal from './components/AddPointModal';
+import ActionButtons from './components/ActionButtons';
 
 const getInitialCardData = (cardId: string) => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
@@ -71,23 +72,26 @@ const RewardCard = () => {
             </div>
           </div>
         ) : (
-          <div
-            className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
-            onClick={() => {
-              if (currentPoints < totalPoints) {
-                onOpen();
-              }
-            }}
-          >
-            <img src="/images/cardHeader.gif" className="w-full  object-cover" />
-            <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
-            <AddPointModal
-              isOpen={isOpen}
-              onClose={onClose}
-              handleAddPoint={handleAddPoint}
-              currentCardData={currentCardData}
-            />
-          </div>
+          <>
+            <ActionButtons />
+            <div
+              className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
+              onClick={() => {
+                if (currentPoints < totalPoints) {
+                  onOpen();
+                }
+              }}
+            >
+              <img src="/images/cardHeader.gif" className="w-full  object-cover" />
+              <div className="grid grid-cols-5 gap-1">{getPointsElements()}</div>
+              <AddPointModal
+                isOpen={isOpen}
+                onClose={onClose}
+                handleAddPoint={handleAddPoint}
+                currentCardData={currentCardData}
+              />
+            </div>
+          </>
         )}
       </section>
     </div>
