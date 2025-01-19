@@ -35,7 +35,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
     if (!title.trim()) newErrors.title = '請填寫集點卡名稱';
     if (redemptionList.length === 0) newErrors.redemptionList = '請新增至少一項兌換清單';
 
-    setErrors(newErrors);
+    setErrors((prev) => ({ ...prev, ...newErrors }));
 
     return Object.keys(newErrors).length === 0;
   };
@@ -86,8 +86,10 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
       <ModalContent>
         <ModalHeader>建立集點卡</ModalHeader>
         <ModalCloseButton />
+
         <ModalBody>
           <CardForm
+            mode="create"
             cardFormData={cardFormData}
             setCardFormData={setCardFormData}
             errors={errors}

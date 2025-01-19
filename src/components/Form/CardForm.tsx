@@ -41,6 +41,7 @@ const isChangeEvent = (
 };
 
 interface CardFormProps {
+  mode: 'create' | 'edit';
   cardFormData: CardFormData;
   setCardFormData: React.Dispatch<React.SetStateAction<CardFormData>>;
   errors: { [key: string]: string };
@@ -48,7 +49,7 @@ interface CardFormProps {
 }
 
 const CardForm: React.FC<CardFormProps> = (props) => {
-  const { cardFormData, setCardFormData, errors, setErrors } = props;
+  const { cardFormData, setCardFormData, errors, setErrors, mode } = props;
   const [redemptionData, setRedemptionData] = useState<RedemptionData>(initialRedemptionData);
   const { title, totalPoints, redemptionList } = cardFormData;
   const { content, points } = redemptionData;
@@ -58,7 +59,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
 
     if (!content.trim()) newErrors.content = '請填寫兌換內容';
 
-    setErrors(newErrors);
+    setErrors((prev) => ({ ...prev, ...newErrors }));
 
     return Object.keys(newErrors).length === 0;
   };
@@ -109,42 +110,44 @@ const CardForm: React.FC<CardFormProps> = (props) => {
         )}
       </FormControl>
 
-      <FormControl mt={6} isRequired>
-        <FormLabel>總點數：</FormLabel>
-        <Flex>
-          <NumberInput
-            max={100}
-            min={10}
-            precision={0}
-            width="30%"
-            mr="1rem"
-            value={totalPoints}
-            name="totalPoints"
-            onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-          <Slider
-            flex="1"
-            focusThumbOnChange={false}
-            min={10}
-            mr={2}
-            value={totalPoints}
-            onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb fontSize="sm" boxSize="32px" children={totalPoints} />
-          </Slider>
-        </Flex>
-      </FormControl>
+      {mode === 'create' && (
+        <FormControl mt={6} isRequired>
+          <FormLabel>總點數：</FormLabel>
+          <Flex>
+            <NumberInput
+              max={100}
+              min={10}
+              precision={0}
+              width="30%"
+              mr="1rem"
+              value={totalPoints}
+              name="totalPoints"
+              onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+            <Slider
+              flex="1"
+              focusThumbOnChange={false}
+              min={10}
+              mr={2}
+              value={totalPoints}
+              onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb fontSize="sm" boxSize="32px" children={totalPoints} />
+            </Slider>
+          </Flex>
+        </FormControl>
+      )}
 
-      <FormControl mt={6} isRequired isInvalid={!!errors.content}>
+      <FormControl mt={6} isRequired={mode === 'create'} isInvalid={!!errors.content}>
         <FormLabel>兌換清單：</FormLabel>
         <Input
           placeholder="請輸入兌換內容"
