@@ -42,7 +42,7 @@ const RewardCard = () => {
       <Link to="/">
         <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
       </Link>
-      <section className="mt-12 w-full px-5">
+      <section className="mt-12 w-full px-5 pb-8">
         {!currentCardData ? (
           <div>
             <div className="font-bold mt-6 text-center text-lg">
