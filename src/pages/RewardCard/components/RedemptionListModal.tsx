@@ -19,6 +19,8 @@ import { useParams } from 'react-router-dom';
 
 import updateCardCurrentPointsToLocalStorage from '@/util/updateCardCurrentPointsToLocalStorage';
 import { CardModalProps } from '@type/pages/rewardCard';
+import { showToast } from '@util/toast';
+import { ALERT_STATUS } from '@constants/index';
 
 const RedemptionListModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
@@ -31,15 +33,7 @@ const RedemptionListModal: React.FC<CardModalProps> = (props) => {
     if (currentPoints >= points) {
       setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints - points }));
       updateCardCurrentPointsToLocalStorage(cardId, -points);
-      toast({
-        title: '兌換獎勵成功！！',
-        position: 'top',
-        status: 'success',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-      });
+      showToast(toast, '兌換成功！！', ALERT_STATUS.SUCCESS);
       onClose();
 
       return;

@@ -16,7 +16,8 @@ import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
 import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
-import { LOCAL_STORAGE_KEYS } from '@constants/index';
+import { ALERT_STATUS, LOCAL_STORAGE_KEYS } from '@constants/index';
+import { showToast } from '@util/toast';
 
 const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
@@ -37,28 +38,11 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
 
       setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, updatedRewardCardList);
 
-      toast({
-        title: '更新成功！！',
-        position: 'top',
-        status: 'success',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-      });
+      showToast(toast, '更新成功！！', ALERT_STATUS.SUCCESS);
       onClose();
     } catch (error) {
       console.error(error);
-      toast({
-        title: '更新失敗，請稍後再試。',
-        position: 'top',
-        status: 'error',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-        icon: <WarningTwoIcon mt="5px" />,
-      });
+      showToast(toast, '更新失敗，請稍後再試。', ALERT_STATUS.ERROR, <WarningTwoIcon mt="5px" />);
     }
   };
 

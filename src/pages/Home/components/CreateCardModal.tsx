@@ -16,7 +16,8 @@ import type { CardData, BaseModalProps } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
 import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
-import { LOCAL_STORAGE_KEYS } from '@constants/index';
+import { ALERT_STATUS, LOCAL_STORAGE_KEYS } from '@constants/index';
+import { showToast } from '@util/toast';
 
 const initialCardData: CardData = {
   id: '',
@@ -46,28 +47,11 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
       setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, [...rewardCardList, newCard]);
 
       setCardData(initialCardData);
+      showToast(toast, '集點卡新增成功！！', ALERT_STATUS.SUCCESS);
       onClose();
-      toast({
-        title: '集點卡新增成功！！',
-        position: 'top',
-        status: 'success',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-      });
     } catch (error) {
       console.error(error);
-      toast({
-        title: '集點卡新增失敗，請稍後再試。',
-        position: 'top',
-        status: 'error',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-        icon: <WarningTwoIcon mt="5px" />,
-      });
+      showToast(toast, '集點卡新增失敗，請稍後再試。', ALERT_STATUS.ERROR, <WarningTwoIcon mt="5px" />);
     }
   };
 

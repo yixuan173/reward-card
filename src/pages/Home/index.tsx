@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import CreateCardModal from './components/CreateCardModal';
 import { getItemFromLocalStorage } from '@util/localStorage';
 import type { CardData } from '@type/common';
-import { LOCAL_STORAGE_KEYS } from '@constants/index';
+import { ALERT_STATUS, LOCAL_STORAGE_KEYS } from '@constants/index';
+import { showToast } from '@util/toast';
 
 const MAX_CARD_COUNT = 6;
 
@@ -24,15 +25,7 @@ const Home = () => {
     if (rewardCardList.length > 0) {
       navigate('/list');
     } else {
-      toast({
-        title: '請先新增集點卡！！！',
-        position: 'top',
-        status: 'info',
-        duration: 2500,
-        containerStyle: {
-          marginTop: '2rem',
-        },
-      });
+      showToast(toast, '請先新增集點卡！！！', ALERT_STATUS.INFO);
     }
   };
 
@@ -46,15 +39,7 @@ const Home = () => {
             size="lg"
             onClick={() => {
               if (checkIsExceedCardMaxCount()) {
-                toast({
-                  title: '已達最大集點卡數量(6張)，無法繼續新增。',
-                  position: 'top',
-                  status: 'warning',
-                  duration: 2500,
-                  containerStyle: {
-                    marginTop: '2rem',
-                  },
-                });
+                showToast(toast, '已達最大集點卡數量(6張)，無法繼續新增。', ALERT_STATUS.WARNING);
                 return;
               }
               onOpen();
