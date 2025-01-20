@@ -21,7 +21,7 @@ import {
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
+import updateCardCurrentPointsToLocalStorage from '@/util/updateCardCurrentPointsToLocalStorage';
 import type { CardModalProps } from '@type/pages/rewardCard';
 
 const AddPointsModal: React.FC<CardModalProps> = (props) => {
@@ -37,7 +37,7 @@ const AddPointsModal: React.FC<CardModalProps> = (props) => {
 
   const handleAddPoints = (points: number) => {
     setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + points }));
-    updateCardListToLocalStorage(cardId, points);
+    updateCardCurrentPointsToLocalStorage(cardId, points);
 
     onClose();
   };

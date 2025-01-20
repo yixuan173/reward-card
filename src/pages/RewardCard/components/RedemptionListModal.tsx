@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
-import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
+import updateCardCurrentPointsToLocalStorage from '@/util/updateCardCurrentPointsToLocalStorage';
 import { CardModalProps } from '@type/pages/rewardCard';
 
 const RedemptionListModal: React.FC<CardModalProps> = (props) => {
@@ -30,7 +30,7 @@ const RedemptionListModal: React.FC<CardModalProps> = (props) => {
   const handleRedeem = (points: number) => {
     if (currentPoints >= points) {
       setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints - points }));
-      updateCardListToLocalStorage(cardId, -points);
+      updateCardCurrentPointsToLocalStorage(cardId, -points);
       toast({
         title: '兌換獎勵成功！！',
         position: 'top',

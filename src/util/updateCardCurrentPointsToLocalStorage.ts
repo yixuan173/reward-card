@@ -1,7 +1,7 @@
 import type { CardData } from '@type/common';
 import { getItemFromLocalStorage } from './localStorage';
 
-const updateCardListToLocalStorage = (cardId: string, points: number) => {
+const updateCardCurrentPointsToLocalStorage = (cardId: string, points: number) => {
   const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
 
   const updatedRewardCardList = rewardCardList.map((card: CardData) => {
@@ -14,4 +14,4 @@ const updateCardListToLocalStorage = (cardId: string, points: number) => {
   localStorage.setItem('rewardCardList', JSON.stringify(updatedRewardCardList));
 };
 
-export default updateCardListToLocalStorage;
+export default updateCardCurrentPointsToLocalStorage;
