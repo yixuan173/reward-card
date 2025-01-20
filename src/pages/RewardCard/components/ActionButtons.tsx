@@ -43,7 +43,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = (props) => {
         </div>
       </Flex>
       <DeleteCardModal isOpen={isOpenDeleteModal} onClose={onCloseDeleteModal} />
-      <EditCardModal isOpen={isOpenEditModal} onClose={onCloseEditModal} />
+      <EditCardModal
+        isOpen={isOpenEditModal}
+        onClose={onCloseEditModal}
+        currentCardData={currentCardData}
+        setCurrentCardData={setCurrentCardData}
+      />
       <RedemptionListModal
         isOpen={isOpenRedemptionListModal}
         onClose={onCloseRedemptionListModal}

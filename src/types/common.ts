@@ -10,5 +10,4 @@ export interface CardData {
   totalPoints: number;
   currentPoints: number;
   redemptionList: RedemptionData[];
-  createDate: Date;
 }

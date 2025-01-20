@@ -1,5 +1,4 @@
-import { RedemptionData } from '@/types/common';
-import { CardFormData } from '@/types/pages/home';
+import { CardData, RedemptionData } from '@/types/common';
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -42,16 +41,16 @@ const isChangeEvent = (
 
 interface CardFormProps {
   mode: 'create' | 'edit';
-  cardFormData: CardFormData;
-  setCardFormData: React.Dispatch<React.SetStateAction<CardFormData>>;
+  cardData: CardData;
+  setCardData: React.Dispatch<React.SetStateAction<CardData>>;
   errors: { [key: string]: string };
   setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }
 
 const CardForm: React.FC<CardFormProps> = (props) => {
-  const { cardFormData, setCardFormData, errors, setErrors, mode } = props;
+  const { cardData, setCardData, errors, setErrors, mode } = props;
   const [redemptionData, setRedemptionData] = useState<RedemptionData>(initialRedemptionData);
-  const { title, totalPoints, redemptionList } = cardFormData;
+  const { title, totalPoints, redemptionList } = cardData;
   const { content, points } = redemptionData;
 
   const validateRedemptionForm = () => {
@@ -68,7 +67,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
     if (!validateRedemptionForm()) return;
 
     const newRedemption = { ...redemptionData, id: crypto.randomUUID() };
-    setCardFormData((prev) => ({
+    setCardData((prev) => ({
       ...prev,
       redemptionList: [...prev.redemptionList, newRedemption],
     }));
@@ -76,7 +75,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
   };
 
   const handleDeleteRedemption = (id: string) => {
-    setCardFormData((prev) => ({
+    setCardData((prev) => ({
       ...prev,
       redemptionList: prev.redemptionList?.filter((item) => item.id !== id),
     }));
@@ -98,7 +97,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       <FormControl isRequired isInvalid={!!errors.title}>
         <FormLabel>名稱：</FormLabel>
         <Input
-          onChange={(e) => handleChange<CardFormData>(e, 'title', setCardFormData)}
+          onChange={(e) => handleChange<CardData>(e, 'title', setCardData)}
           name="title"
           value={title}
           placeholder="請輸入集點卡名稱"
@@ -122,7 +121,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
               mr="1rem"
               value={totalPoints}
               name="totalPoints"
-              onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
+              onChange={(e) => handleChange<CardData>(e, 'totalPoints', setCardData)}
             >
               <NumberInputField />
               <NumberInputStepper>
@@ -136,7 +135,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
               min={10}
               mr={2}
               value={totalPoints}
-              onChange={(e) => handleChange<CardFormData>(e, 'totalPoints', setCardFormData)}
+              onChange={(e) => handleChange<CardData>(e, 'totalPoints', setCardData)}
             >
               <SliderTrack>
                 <SliderFilledTrack />

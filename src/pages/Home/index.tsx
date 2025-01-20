@@ -58,7 +58,7 @@ const Home = () => {
               onOpen();
             }}
           >
-            建立集點卡
+            新增集點卡
           </Button>
           <Button colorScheme="pink" size="lg" variant="outline" onClick={handleViewRewardCardList}>
             查看集點卡

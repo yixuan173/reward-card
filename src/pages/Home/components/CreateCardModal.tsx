@@ -13,10 +13,13 @@ import {
 import { useState } from 'react';
 
 import type { CardData } from '@/types/common';
-import type { CardFormData, CreateCardModalProps } from '@/types/pages/home';
+import type { CreateCardModalProps } from '@/types/pages/home';
 import CardForm from '@components/Form/CardForm';
+import validateCardForm from '@util/validateCardForm';
 
-const initialCardFormData: CardFormData = {
+const initialCardData: CardData = {
+  id: '',
+  currentPoints: 0,
   title: '',
   totalPoints: 10,
   redemptionList: [],
@@ -25,36 +28,23 @@ const initialCardFormData: CardFormData = {
 const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const toast = useToast();
-  const [cardFormData, setCardFormData] = useState<CardFormData>(initialCardFormData);
+  const [cardData, setCardData] = useState<CardData>(initialCardData);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { title, redemptionList } = cardFormData;
-
-  const validateCardForm = (): boolean => {
-    const newErrors: { [key: string]: string } = {};
-
-    if (!title.trim()) newErrors.title = '請填寫集點卡名稱';
-    if (redemptionList.length === 0) newErrors.redemptionList = '請新增至少一項兌換清單';
-
-    setErrors((prev) => ({ ...prev, ...newErrors }));
-
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleCreateRewardCard = () => {
-    if (!validateCardForm()) return;
+    if (!validateCardForm(cardData, setErrors)) return;
 
     try {
       const newCard = {
-        ...cardFormData,
+        ...cardData,
         id: crypto.randomUUID(),
-        createDate: new Date(),
         currentPoints: 0,
       } as CardData;
 
       const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
       localStorage.setItem('rewardCardList', JSON.stringify([...JSON.parse(rewardCardListFromLocalStorage), newCard]));
 
-      setCardFormData(initialCardFormData);
+      setCardData(initialCardData);
       onClose();
       toast({
         title: '集點卡新增成功！！',
@@ -84,17 +74,11 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} isCentered scrollBehavior="inside" size="sm">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>建立集點卡</ModalHeader>
+        <ModalHeader>新增</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>
-          <CardForm
-            mode="create"
-            cardFormData={cardFormData}
-            setCardFormData={setCardFormData}
-            errors={errors}
-            setErrors={setErrors}
-          />
+          <CardForm mode="create" cardData={cardData} setCardData={setCardData} errors={errors} setErrors={setErrors} />
         </ModalBody>
 
         <ModalFooter>
@@ -102,7 +86,7 @@ const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
             取消
           </Button>
           <Button colorScheme="pink" onClick={handleCreateRewardCard}>
-            建立
+            新增
           </Button>
         </ModalFooter>
       </ModalContent>
