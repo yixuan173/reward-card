@@ -6,9 +6,10 @@ import { Link, useParams } from 'react-router-dom';
 import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
 import { getItemFromLocalStorage } from '@util/localStorage';
+import { LOCAL_STORAGE_KEYS } from '@constants/index';
 
 const getInitialCardData = (cardId: string) => {
-  const rewardCardList = getItemFromLocalStorage('rewardCardList');
+  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST);
   return rewardCardList.find((card: CardData) => card.id === cardId);
 };
 

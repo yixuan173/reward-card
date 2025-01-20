@@ -3,9 +3,10 @@ import { Tag, TagLabel } from '@chakra-ui/react';
 
 import type { CardData } from '@type/common';
 import { getItemFromLocalStorage } from '@util/localStorage';
+import { LOCAL_STORAGE_KEYS } from '@constants/index';
 
 const RewardCardList = () => {
-  const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
+  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
 
   return (
     <div className="flex flex-col items-center h-screen">

@@ -1,8 +1,9 @@
 import type { CardData } from '@type/common';
 import { getItemFromLocalStorage, setItemToLocalStorage } from './localStorage';
+import { LOCAL_STORAGE_KEYS } from '@constants/index';
 
 const updateCardCurrentPointsToLocalStorage = (cardId: string, points: number) => {
-  const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
+  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
 
   const updatedRewardCardList = rewardCardList.map((card: CardData) => {
     if (card.id === cardId) {
@@ -11,7 +12,7 @@ const updateCardCurrentPointsToLocalStorage = (cardId: string, points: number) =
     return card;
   });
 
-  setItemToLocalStorage<CardData[]>('rewardCardList', updatedRewardCardList);
+  setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, updatedRewardCardList);
 };
 
 export default updateCardCurrentPointsToLocalStorage;

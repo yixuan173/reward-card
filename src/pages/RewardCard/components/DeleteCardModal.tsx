@@ -3,13 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import type { BaseModalProps, CardData } from '@type/common';
 import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
+import { LOCAL_STORAGE_KEYS } from '@constants/index';
 
 const deleteCardListToLocalStorage = (cardId: string) => {
-  const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
+  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
 
   const updatedRewardCardList = rewardCardList.filter((card: CardData) => card.id !== cardId);
 
-  setItemToLocalStorage<CardData[]>('rewardCardList', updatedRewardCardList);
+  setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, updatedRewardCardList);
 };
 
 const DeleteCardModal: React.FC<BaseModalProps> = (props) => {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CreateCardModal from './components/CreateCardModal';
 import { getItemFromLocalStorage } from '@util/localStorage';
 import type { CardData } from '@type/common';
+import { LOCAL_STORAGE_KEYS } from '@constants/index';
 
 const MAX_CARD_COUNT = 6;
 
@@ -11,7 +12,7 @@ const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
-  const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
+  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
 
   const checkIsExceedCardMaxCount = () => {
     if (rewardCardList.length >= MAX_CARD_COUNT) return true;

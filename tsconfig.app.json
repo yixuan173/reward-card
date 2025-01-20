@@ -34,7 +34,8 @@
       "@pages/*": ["./src/pages/*"],
       "@type/*": ["./src/types/*"],
       "@util/*": ["./src/util/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"]
     }
   }
 }
