@@ -17,7 +17,7 @@ const RewardCardList = () => {
         {rewardCardList.map((card: CardData) => (
           <Link to={`/${card.id}`} key={card.id}>
             <div className="w-full relative flex flex-col items-center">
-              <img src=".images/card.webp" alt={card.title} className="w-11/12" />
+              <img src="./images/card.webp" alt={card.title} className="w-11/12" />
               <h2 className="text-2xl font-bold text-pink-600">{card.title}</h2>
               <Tag size="lg" colorScheme="red" borderRadius="full" className="absolute -top-3 -right-1">
                 <TagLabel>{card.currentPoints}</TagLabel>
