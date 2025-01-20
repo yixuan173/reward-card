@@ -15,6 +15,7 @@ import CardForm from '@components/CardForm';
 import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
+import { getItemFromLocalStorage } from '@util/localStorage';
 
 const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
@@ -25,8 +26,7 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
     if (!validateCardForm(currentCardData, setErrors)) return;
 
     try {
-      const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
-      const rewardCardList = JSON.parse(rewardCardListFromLocalStorage) as CardData[];
+      const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
       const updatedRewardCardList = rewardCardList.map((card: CardData) => {
         if (card.id === currentCardData.id) {
           return currentCardData;

@@ -1,8 +1,8 @@
 import type { CardData } from '@type/common';
+import { getItemFromLocalStorage } from './localStorage';
 
 const updateCardListToLocalStorage = (cardId: string, points: number) => {
-  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
-  const rewardCardList = JSON.parse(rewardCardListFromLocalStorage);
+  const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
 
   const updatedRewardCardList = rewardCardList.map((card: CardData) => {
     if (card.id === cardId) {

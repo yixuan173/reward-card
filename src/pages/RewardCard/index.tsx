@@ -2,12 +2,14 @@ import type { CardData } from '@type/common';
 import { Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+
 import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
+import { getItemFromLocalStorage } from '@util/localStorage';
 
 const getInitialCardData = (cardId: string) => {
-  const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
-  return JSON.parse(rewardCardListFromLocalStorage).find((card: CardData) => card.id === cardId);
+  const rewardCardList = getItemFromLocalStorage('rewardCardList');
+  return rewardCardList.find((card: CardData) => card.id === cardId);
 };
 
 const RewardCard = () => {
