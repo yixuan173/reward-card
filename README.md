@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# 乖寶寶集點卡
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 專案介紹
 
-Currently, two official plugins are available:
+此專案是一個集點卡，旨在幫助各位情侶可以有一個簡易的集點卡介面，不用再擔心集點卡沒帶在身上，也不用擔心集點卡會不見，開始來設計你與他的專屬集點卡吧。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+集點卡資料統一儲存在 localStorage 裡面，因此要同裝置同瀏覽器才能讀取到集點卡資料。
 
-## Expanding the ESLint configuration
+只針對手機進行設計，因此用桌機看會有很大機率跑版。
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 技術
 
-- Configure the top-level `parserOptions` property like this:
+此專案使用了以下技術和套件：
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **React**: 用於構建使用者介面。
+- **Chakra UI**: 用於快速建立美觀且響應式的 UI 元件。
+- **React Router**: 用於處理應用程式中的路由。
+- **TypeScript**: 增強 JavaScript 的型別系統，提升開發體驗和代碼質量。
+- **Vite**: 用於快速構建和開發應用程式。
+- **Tailwind CSS**: 用於快速設計和定制化樣式。
+- **ESLint**: 用於代碼檢查和維持代碼風格一致性。
+- **Prettier**: 用於代碼格式化，保持代碼風格統一。
+
+這些技術和工具的組合使得專案開發更加高效和可靠。
+
+## 功能
+
+- 新增集點卡
+- 編輯集點卡
+- 刪除集點卡
+- 查看集點卡
+- 新增獎勵清單
+- 進行點數兌換
+
+## 安裝與使用
+
+1. Clone 此專案到本地端：
+
+```bash
+git clone https://github.com/yourusername/reward-card.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. 進入專案目錄：
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+cd reward-card
 ```
+
+3. 安裝所需的依賴：
+
+```bash
+npm install
+```
+
+4. 啟動應用程式：
+
+```bash
+npm run dev
+```
+
+## 參考資料
+
+集點卡預設圖案皆採用 [韓國插畫師 Moonlab Studio](https://www.instagram.com/moonlab_studio/?utm_source=ig_embed&ig_rid=020cd368-3df6-4066-bf64-d3d514223a0f) 繪製的線條小狗。
