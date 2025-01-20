@@ -1,4 +1,4 @@
-import type { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 
 const validateCardForm = (
   cardData: CardData,

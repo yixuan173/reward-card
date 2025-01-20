@@ -1,4 +1,4 @@
-import { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 import {
   Button,
   Flex,

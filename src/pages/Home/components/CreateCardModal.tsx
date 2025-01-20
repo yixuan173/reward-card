@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import type { CardData } from '@/types/common';
-import type { CreateCardModalProps } from '@/types/pages/home';
+import type { CardData } from '@type/common';
+import type { CreateCardModalProps } from '@type/pages/home';
 import CardForm from '@components/Form/CardForm';
 import validateCardForm from '@util/validateCardForm';
 

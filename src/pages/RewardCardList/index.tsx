@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-
-import { CardData } from '@/types/common';
 import { Tag, TagLabel } from '@chakra-ui/react';
+
+import type { CardData } from '@type/common';
 
 const RewardCardList = () => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';

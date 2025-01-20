@@ -1,4 +1,4 @@
-import { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 

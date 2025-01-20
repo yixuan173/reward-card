@@ -4,7 +4,7 @@ import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import DeleteCardModal from './DeleteCardModal';
 import EditCardModal from './EditCardModal';
 import RedemptionListModal from './RedemptionListModal';
-import type { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 
 interface ActionButtonsProps {
   currentCardData: CardData;

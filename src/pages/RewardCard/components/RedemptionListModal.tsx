@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
-import type { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
 interface RedemptionListModalProps {
   isOpen: boolean;

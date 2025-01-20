@@ -1,4 +1,4 @@
-import { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 import { Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';

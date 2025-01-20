@@ -1,4 +1,4 @@
-import { CardData, RedemptionData } from '@/types/common';
+import type { CardData, RedemptionData } from '@type/common';
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Button,

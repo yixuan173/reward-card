@@ -1,4 +1,4 @@
-import type { CardData } from '@/types/common';
+import type { CardData } from '@type/common';
 
 const updateCardListToLocalStorage = (cardId: string, points: number) => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
