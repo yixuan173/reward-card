@@ -12,8 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import type { CardData } from '@type/common';
-import type { CreateCardModalProps } from '@type/pages/home';
+import type { CardData, BaseModalProps } from '@type/common';
 import CardForm from '@components/Form/CardForm';
 import validateCardForm from '@util/validateCardForm';
 
@@ -25,7 +24,7 @@ const initialCardData: CardData = {
   redemptionList: [],
 };
 
-const CreateCardModal: React.FC<CreateCardModalProps> = (props) => {
+const CreateCardModal: React.FC<BaseModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const toast = useToast();
   const [cardData, setCardData] = useState<CardData>(initialCardData);

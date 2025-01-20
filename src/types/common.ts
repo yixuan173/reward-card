@@ -11,3 +11,8 @@ export interface CardData {
   currentPoints: number;
   redemptionList: RedemptionData[];
 }
+
+export interface BaseModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

@@ -9,20 +9,14 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { WarningTwoIcon } from '@chakra-ui/icons';
 
 import CardForm from '@components/Form/CardForm';
 import type { CardData } from '@type/common';
+import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
-import { WarningTwoIcon } from '@chakra-ui/icons';
 
-interface EditCardModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  currentCardData: CardData;
-  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
-}
-
-const EditCardModal: React.FC<EditCardModalProps> = (props) => {
+const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
   const toast = useToast();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});

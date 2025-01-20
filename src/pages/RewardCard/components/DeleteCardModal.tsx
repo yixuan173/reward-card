@@ -1,11 +1,7 @@
-import type { CardData } from '@type/common';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-interface DeleteCardModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import type { BaseModalProps, CardData } from '@type/common';
 
 const deleteCardListToLocalStorage = (cardId: string) => {
   const rewardCardListFromLocalStorage = localStorage.getItem('rewardCardList') || '[]';
@@ -16,7 +12,7 @@ const deleteCardListToLocalStorage = (cardId: string) => {
   localStorage.setItem('rewardCardList', JSON.stringify(updatedRewardCardList));
 };
 
-const DeleteCardModal: React.FC<DeleteCardModalProps> = (props) => {
+const DeleteCardModal: React.FC<BaseModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const { cardId = '' } = useParams<{ cardId: string }>();
   const navigate = useNavigate();

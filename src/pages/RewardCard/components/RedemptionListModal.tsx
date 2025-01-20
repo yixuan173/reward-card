@@ -17,16 +17,10 @@ import {
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
-import type { CardData } from '@type/common';
 import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
-interface RedemptionListModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  currentCardData: CardData;
-  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
-}
+import { CardModalProps } from '@type/pages/rewardCard';
 
-const RedemptionListModal: React.FC<RedemptionListModalProps> = (props) => {
+const RedemptionListModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
   const toast = useToast();
   const { cardId = '' } = useParams<{ cardId: string }>();

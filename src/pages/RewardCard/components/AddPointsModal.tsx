@@ -1,4 +1,3 @@
-import type { CardData } from '@type/common';
 import {
   Button,
   Flex,
@@ -20,18 +19,12 @@ import {
   SliderTrack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-
-import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
 import { useParams } from 'react-router-dom';
 
-interface AddPointsModalProps {
-  isOpen: boolean;
-  currentCardData: CardData;
-  onClose: () => void;
-  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
-}
+import updateCardListToLocalStorage from '@util/updateCardListToLocalStorage';
+import type { CardModalProps } from '@type/pages/rewardCard';
 
-const AddPointsModal: React.FC<AddPointsModalProps> = (props) => {
+const AddPointsModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, setCurrentCardData, currentCardData } = props;
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { totalPoints, currentPoints } = currentCardData;

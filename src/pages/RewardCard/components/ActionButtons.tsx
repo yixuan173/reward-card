@@ -4,12 +4,8 @@ import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react';
 import DeleteCardModal from './DeleteCardModal';
 import EditCardModal from './EditCardModal';
 import RedemptionListModal from './RedemptionListModal';
-import type { CardData } from '@type/common';
+import type { ActionButtonsProps } from '@type/pages/rewardCard';
 
-interface ActionButtonsProps {
-  currentCardData: CardData;
-  setCurrentCardData: React.Dispatch<React.SetStateAction<CardData>>;
-}
 const ActionButtons: React.FC<ActionButtonsProps> = (props) => {
   const { currentCardData, setCurrentCardData } = props;
   const { isOpen: isOpenDeleteModal, onOpen: onOpenDeleteModal, onClose: onCloseDeleteModal } = useDisclosure();
