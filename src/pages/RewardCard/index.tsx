@@ -30,7 +30,7 @@ const RewardCard = () => {
         </Text>
         {currentPoints > index && (
           <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <img src="/images/point.webp" alt="point" className="clip-circle w-full object-cover -rotate-[30deg]" />
+            <img src="./images/point.webp" alt="point" className="clip-circle w-full object-cover -rotate-[30deg]" />
           </div>
         )}
       </div>
@@ -63,7 +63,7 @@ const RewardCard = () => {
                 }
               }}
             >
-              <img src="/images/cardHeader.gif" className="w-full  object-cover" />
+              <img src="./images/cardHeader.gif" className="w-full  object-cover" alt="card-header-pic" />
               <div className="grid grid-cols-5 gap-1">{getPointElements()}</div>
               <AddPointsModal
                 isOpen={isOpen}
