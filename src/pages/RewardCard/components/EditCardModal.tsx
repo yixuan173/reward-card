@@ -15,7 +15,7 @@ import CardForm from '@components/CardForm';
 import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
-import { getItemFromLocalStorage } from '@util/localStorage';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
 
 const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
@@ -34,7 +34,7 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
         return card;
       });
 
-      localStorage.setItem('rewardCardList', JSON.stringify(updatedRewardCardList));
+      setItemToLocalStorage<CardData[]>('rewardCardList', updatedRewardCardList);
 
       toast({
         title: '更新成功！！',

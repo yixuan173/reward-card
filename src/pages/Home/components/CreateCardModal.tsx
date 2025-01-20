@@ -15,7 +15,7 @@ import { useState } from 'react';
 import type { CardData, BaseModalProps } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
-import { getItemFromLocalStorage } from '@util/localStorage';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
 
 const initialCardData: CardData = {
   id: '',
@@ -42,7 +42,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
       } as CardData;
 
       const rewardCardList = getItemFromLocalStorage('rewardCardList') as CardData[];
-      localStorage.setItem('rewardCardList', JSON.stringify([...rewardCardList, newCard]));
+      setItemToLocalStorage<CardData[]>('rewardCardList', [...rewardCardList, newCard]);
 
       setCardData(initialCardData);
       onClose();
