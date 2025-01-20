@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 
 import type { CardData, BaseModalProps } from '@type/common';
-import CardForm from '@components/Form/CardForm';
+import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
 
 const initialCardData: CardData = {

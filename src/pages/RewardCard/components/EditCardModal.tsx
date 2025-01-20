@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 import { WarningTwoIcon } from '@chakra-ui/icons';
 
-import CardForm from '@components/Form/CardForm';
+import CardForm from '@components/CardForm';
 import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
