@@ -15,10 +15,16 @@ const RewardCardList = () => {
       <section className="mt-12 w-full grid grid-cols-2 gap-8 px-6 pb-8 max-w-lg">
         {rewardCardList.map(({ id, title, currentPoints, cardImage }: CardData) => (
           <Link to={`/${id}`} key={id}>
-            <div className="w-full h-full relative flex flex-col items-center">
-              <Image src={cardImage} fallbackSrc="./images/card.webp" alt={title} objectFit="cover" boxSize="100%" />
+            <div className="w-full relative flex flex-col items-center">
+              <Image
+                src={cardImage}
+                fallbackSrc="./images/card.webp"
+                alt={title}
+                objectFit="cover"
+                className="w-full h-64"
+              />
               <h2 className="text-2xl font-bold text-pink-600">{title}</h2>
-              <Tag size="lg" colorScheme="red" borderRadius="full" className="absolute -top-3 -right-1">
+              <Tag size="lg" colorScheme="red" borderRadius="full" className="absolute -top-3 -right-3">
                 <TagLabel>{currentPoints}</TagLabel>
               </Tag>
             </div>
