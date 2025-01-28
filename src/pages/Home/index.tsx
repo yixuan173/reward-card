@@ -1,4 +1,4 @@
-import { Button, Stack, useDisclosure, useToast, Box, Link } from '@chakra-ui/react';
+import { Button, Stack, useDisclosure, useToast, Box, Link, Image } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import CreateCardModal from './components/CreateCardModal';
@@ -59,7 +59,7 @@ const Home = () => {
       <Box as="footer" py="4" textAlign="center" className="flex justify-center items-center">
         <span>2025</span>
         <Link href={GITHUB_LINK} isExternal ml="2">
-          <img src="./reward-card/images/logo-github.svg" alt="GitHub Logo" width="24" height="24" />
+          <Image src="./reward-card/images/logo-github.svg" boxSize="24px" alt="GitHub Logo" />
         </Link>
       </Box>
     </div>

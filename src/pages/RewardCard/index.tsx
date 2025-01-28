@@ -1,5 +1,5 @@
 import type { CardData } from '@type/common';
-import { Text, useDisclosure } from '@chakra-ui/react';
+import { Image, Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const RewardCard = () => {
         </Text>
         {currentPoints > index && (
           <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <img src="./images/point.webp" alt="point" className="clip-circle w-full object-cover -rotate-[30deg]" />
+            <Image src="" fallbackSrc="./images/point.webp" alt="point" borderRadius="full" objectFit="cover" />
           </div>
         )}
       </div>
@@ -41,7 +41,7 @@ const RewardCard = () => {
   return (
     <div className="flex flex-col items-center h-screen">
       <Header />
-      <section className="mt-12 w-full px-5 pb-8">
+      <section className="mt-12 w-full px-5 pb-8 max-w-lg">
         {!currentCardData ? (
           <div>
             <div className="font-bold mt-6 text-center text-lg">
@@ -62,7 +62,13 @@ const RewardCard = () => {
                 }
               }}
             >
-              <img src="./images/cardHeader.gif" className="w-full  object-cover" alt="card-header-pic" />
+              <Image
+                src=""
+                fallbackSrc="./images/cardHeader.gif"
+                alt="card-header-picture"
+                objectFit="cover"
+                boxSize="100%"
+              />
               <div className="grid grid-cols-5 gap-1">{getPointElements()}</div>
               <AddPointsModal
                 isOpen={isOpen}
