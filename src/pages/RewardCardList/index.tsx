@@ -4,15 +4,14 @@ import { Tag, TagLabel } from '@chakra-ui/react';
 import type { CardData } from '@type/common';
 import { getItemFromLocalStorage } from '@util/localStorage';
 import { LOCAL_STORAGE_KEYS } from '@constants/index';
+import Header from '@components/Header';
 
 const RewardCardList = () => {
   const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
 
   return (
     <div className="flex flex-col items-center h-screen mb-12">
-      <Link to="/">
-        <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
-      </Link>
+      <Header />
       <section className="mt-12 w-full grid grid-cols-2 gap-8 px-6 pb-8">
         {rewardCardList.map((card: CardData) => (
           <Link to={`/${card.id}`} key={card.id}>

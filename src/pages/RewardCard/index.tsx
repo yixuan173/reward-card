@@ -7,6 +7,7 @@ import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
 import { getItemFromLocalStorage } from '@util/localStorage';
 import { LOCAL_STORAGE_KEYS } from '@constants/index';
+import Header from '@components/Header';
 
 const getInitialCardData = (cardId: string) => {
   const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST);
@@ -39,9 +40,7 @@ const RewardCard = () => {
 
   return (
     <div className="flex flex-col items-center h-screen">
-      <Link to="/">
-        <h1 className="text-5xl font-bold text-pink-400 mt-6">乖寶寶集點卡</h1>
-      </Link>
+      <Header />
       <section className="mt-12 w-full px-5 pb-8">
         {!currentCardData ? (
           <div>
