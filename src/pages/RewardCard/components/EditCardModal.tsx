@@ -47,7 +47,7 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
   };
 
   return (
-    <Modal onClose={onClose} isOpen={isOpen} isCentered size="sm" closeOnOverlayClick={false}>
+    <Modal onClose={onClose} isOpen={isOpen} isCentered size="sm" scrollBehavior="inside" closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>編輯</ModalHeader>

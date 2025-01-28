@@ -10,6 +10,9 @@ export interface CardData {
   totalPoints: number;
   currentPoints: number;
   redemptionList: RedemptionData[];
+  cardHeaderImage: string;
+  pointImage: string;
+  cardImage: string;
 }
 
 export interface BaseModalProps {

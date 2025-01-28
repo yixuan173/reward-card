@@ -18,7 +18,7 @@ const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentCardData, setCurrentCardData] = useState<CardData>(getInitialCardData(cardId));
-  const { totalPoints, currentPoints } = currentCardData || {};
+  const { totalPoints, currentPoints, pointImage, cardHeaderImage } = currentCardData || {};
 
   const getPointElements = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
@@ -30,8 +30,15 @@ const RewardCard = () => {
           {index + 1}
         </Text>
         {currentPoints > index && (
-          <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Image src="" fallbackSrc="./images/point.webp" alt="point" borderRadius="full" objectFit="cover" />
+          <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex">
+            <Image
+              src={pointImage}
+              fallbackSrc="./images/point.webp"
+              alt="point"
+              borderRadius="full"
+              objectFit="cover"
+              className="-rotate-[30deg]"
+            />
           </div>
         )}
       </div>
@@ -63,13 +70,13 @@ const RewardCard = () => {
               }}
             >
               <Image
-                src=""
+                src={cardHeaderImage}
                 fallbackSrc="./images/cardHeader.gif"
                 alt="card-header-picture"
                 objectFit="cover"
-                boxSize="100%"
+                className="w-full max-h-[200px]"
               />
-              <div className="grid grid-cols-5 gap-1">{getPointElements()}</div>
+              <div className="grid grid-cols-5 gap-1 mt-3">{getPointElements()}</div>
               <AddPointsModal
                 isOpen={isOpen}
                 onClose={onClose}

@@ -25,7 +25,7 @@ const DeleteCardModal: React.FC<BaseModalProps> = (props) => {
   };
 
   return (
-    <Modal onClose={onClose} isOpen={isOpen} isCentered size="xs" closeOnOverlayClick={false}>
+    <Modal onClose={onClose} isOpen={isOpen} isCentered size="xs">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>刪除</ModalHeader>

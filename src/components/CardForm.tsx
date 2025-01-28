@@ -50,7 +50,7 @@ interface CardFormProps {
 const CardForm: React.FC<CardFormProps> = (props) => {
   const { cardData, setCardData, errors, setErrors, mode } = props;
   const [redemptionData, setRedemptionData] = useState<RedemptionData>(initialRedemptionData);
-  const { title, totalPoints, redemptionList } = cardData;
+  const { title, totalPoints, redemptionList, cardHeaderImage, cardImage, pointImage } = cardData;
   const { content, points } = redemptionData;
 
   const validateRedemptionForm = () => {
@@ -145,6 +145,36 @@ const CardForm: React.FC<CardFormProps> = (props) => {
           </Flex>
         </FormControl>
       )}
+
+      <FormControl mt={6}>
+        <FormLabel>卡片列表縮圖：</FormLabel>
+        <Input
+          onChange={(e) => handleChange<CardData>(e, 'cardImage', setCardData)}
+          name="cardImage"
+          value={cardImage}
+          placeholder="請填入圖片網址"
+        />
+      </FormControl>
+
+      <FormControl mt={6}>
+        <FormLabel>卡片置頂圖：</FormLabel>
+        <Input
+          onChange={(e) => handleChange<CardData>(e, 'cardHeaderImage', setCardData)}
+          name="cardHeaderImage"
+          value={cardHeaderImage}
+          placeholder="請填入圖片網址"
+        />
+      </FormControl>
+
+      <FormControl mt={6}>
+        <FormLabel>點數圖示：</FormLabel>
+        <Input
+          onChange={(e) => handleChange<CardData>(e, 'pointImage', setCardData)}
+          name="pointImage"
+          value={pointImage}
+          placeholder="請填入圖片網址"
+        />
+      </FormControl>
 
       <FormControl mt={6} isRequired={mode === 'create'} isInvalid={!!errors.content}>
         <FormLabel>兌換清單：</FormLabel>

@@ -43,10 +43,10 @@ const AddPointsModal: React.FC<CardModalProps> = (props) => {
   };
 
   return (
-    <Modal onClose={onClose} size="xs" isOpen={isOpen} isCentered closeOnOverlayClick={false}>
+    <Modal onClose={onClose} size="xs" isOpen={isOpen} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>新增點數</ModalHeader>
+        <ModalHeader>新增</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>

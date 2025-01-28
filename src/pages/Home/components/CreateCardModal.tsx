@@ -21,6 +21,9 @@ import { showToast } from '@util/toast';
 
 const initialCardData: CardData = {
   id: '',
+  cardHeaderImage: '',
+  pointImage: '',
+  cardImage: '',
   currentPoints: 0,
   title: '',
   totalPoints: 10,
@@ -40,7 +43,6 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
       const newCard = {
         ...cardData,
         id: crypto.randomUUID(),
-        currentPoints: 0,
       } as CardData;
 
       const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];

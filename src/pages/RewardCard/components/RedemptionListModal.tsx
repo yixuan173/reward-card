@@ -44,7 +44,7 @@ const RedemptionListModal: React.FC<CardModalProps> = (props) => {
     <Modal onClose={onClose} isOpen={isOpen} isCentered size="xs">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>兌換獎勵</ModalHeader>
+        <ModalHeader>兌換</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>
