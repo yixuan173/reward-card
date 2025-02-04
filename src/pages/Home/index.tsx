@@ -59,7 +59,7 @@ const Home = () => {
       <Box as="footer" py="4" textAlign="center" className="flex justify-center items-center">
         <span>2025</span>
         <Link href={GITHUB_LINK} isExternal ml="2">
-          <Image src="./reward-card/images/logo-github.svg" boxSize="24px" alt="GitHub Logo" />
+          <Image src="./images/logo-github.svg" boxSize="24px" alt="GitHub Logo" />
         </Link>
       </Box>
     </div>
