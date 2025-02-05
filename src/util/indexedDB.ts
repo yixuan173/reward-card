@@ -71,10 +71,6 @@ export const updateCardToIndexedDB = async (updateData: CardData): Promise<void>
  * @returns {Promise<void>} A promise that resolves when the card has been deleted from the IndexedDB.
  */
 export const deleteCardFromIndexedDB = async (id: string): Promise<void> => {
-  try {
-    const db = await dbPromise;
-    await db.delete(INDEXEDDB_STORES.CARD_LIST, id);
-  } catch (error) {
-    console.error(error);
-  }
+  const db = await dbPromise;
+  await db.delete(INDEXEDDB_STORES.CARD_LIST, id);
 };
