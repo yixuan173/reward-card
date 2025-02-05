@@ -15,29 +15,20 @@ import CardForm from '@components/CardForm';
 import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
-import { ALERT_STATUS, LOCAL_STORAGE_KEYS } from '@constants/index';
+import { ALERT_STATUS } from '@constants/index';
 import { showToast } from '@util/toast';
+import { updateCardToIndexedDB } from '@util/indexedDB';
 
 const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
   const toast = useToast();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleSaveRewardCard = () => {
+  const handleSaveRewardCard = async () => {
     if (!validateCardForm(currentCardData, setErrors)) return;
 
     try {
-      const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
-      const updatedRewardCardList = rewardCardList.map((card: CardData) => {
-        if (card.id === currentCardData.id) {
-          return currentCardData;
-        }
-        return card;
-      });
-
-      setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, updatedRewardCardList);
-
+      await updateCardToIndexedDB(currentCardData);
       showToast(toast, '更新成功！！', ALERT_STATUS.SUCCESS);
       onClose();
     } catch (error) {
@@ -56,7 +47,7 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
           <CardForm
             mode="edit"
             cardData={currentCardData}
-            setCardData={setCurrentCardData}
+            setCardData={setCurrentCardData as React.Dispatch<React.SetStateAction<CardData>>}
             errors={errors}
             setErrors={setErrors}
           />
