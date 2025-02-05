@@ -53,8 +53,8 @@ const CardForm: React.FC<CardFormProps> = (props) => {
   const { title, totalPoints, redemptionList, cardHeaderImage, cardImage, pointImage } = cardData;
   const { content, points } = redemptionData;
 
-  const validateRedemptionForm = () => {
-    const newErrors: { [key: string]: string } = {};
+  const validateRedemptionForm = (): boolean => {
+    const newErrors: { [key in keyof RedemptionData]?: string } = {};
 
     if (!content.trim()) newErrors.content = '請填寫兌換內容';
 
@@ -63,7 +63,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleCreateRedemption = () => {
+  const handleCreateRedemption = (): void => {
     if (!validateRedemptionForm()) return;
 
     const newRedemption = { ...redemptionData, id: crypto.randomUUID() };
@@ -74,7 +74,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
     setRedemptionData(initialRedemptionData);
   };
 
-  const handleDeleteRedemption = (id: string) => {
+  const handleDeleteRedemption = (id: string): void => {
     setCardData((prev) => ({
       ...prev,
       redemptionList: prev.redemptionList?.filter((item) => item.id !== id),
@@ -92,6 +92,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
     }));
     setErrors({});
   };
+
   return (
     <>
       <FormControl isRequired isInvalid={!!errors.title}>
