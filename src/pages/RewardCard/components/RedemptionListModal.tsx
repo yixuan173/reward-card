@@ -15,28 +15,33 @@ import {
   Tr,
   useToast,
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
 
-import updateCardCurrentPointsToLocalStorage from '@/util/updateCardCurrentPointsToLocalStorage';
 import { CardModalProps } from '@type/pages/rewardCard';
 import { showToast } from '@util/toast';
 import { ALERT_STATUS } from '@constants/index';
+import { updateCardToIndexedDB } from '@util/indexedDB';
 
 const RedemptionListModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
   const toast = useToast();
-  const { cardId = '' } = useParams<{ cardId: string }>();
   const { redemptionList, currentPoints } = currentCardData;
   const sortedRedemptionList = redemptionList.sort((a, b) => a.points - b.points);
 
-  const handleRedeem = (points: number) => {
-    if (currentPoints >= points) {
-      setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints - points }));
-      updateCardCurrentPointsToLocalStorage(cardId, -points);
+  const handleRedeem = async (points: number) => {
+    if (currentPoints < points) return;
+    try {
+      const updateCard = {
+        ...currentCardData,
+        currentPoints: currentPoints - points,
+      };
+
+      await updateCardToIndexedDB(updateCard);
+      setCurrentCardData(updateCard);
       showToast(toast, '兌換成功！！', ALERT_STATUS.SUCCESS);
       onClose();
-
-      return;
+    } catch (error) {
+      console.error(error);
+      showToast(toast, '兌換失敗，請稍後再試。', ALERT_STATUS.ERROR);
     }
   };
 
