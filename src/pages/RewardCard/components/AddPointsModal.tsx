@@ -17,16 +17,18 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-import updateCardCurrentPointsToLocalStorage from '@/util/updateCardCurrentPointsToLocalStorage';
 import type { CardModalProps } from '@type/pages/rewardCard';
+import { updateCardToIndexedDB } from '@util/indexedDB';
+import { showToast } from '@util/toast';
+import { ALERT_STATUS } from '@constants/index';
 
 const AddPointsModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, setCurrentCardData, currentCardData } = props;
-  const { cardId = '' } = useParams<{ cardId: string }>();
+  const toast = useToast();
   const { totalPoints, currentPoints } = currentCardData;
   const [points, setPoints] = useState(1);
 
@@ -35,11 +37,20 @@ const AddPointsModal: React.FC<CardModalProps> = (props) => {
     setPoints(numberPoints);
   };
 
-  const handleAddPoints = (points: number) => {
-    setCurrentCardData((prev) => ({ ...prev, currentPoints: prev.currentPoints + points }));
-    updateCardCurrentPointsToLocalStorage(cardId, points);
+  const handleAddPoints = async (points: number) => {
+    try {
+      const updateCard = {
+        ...currentCardData,
+        currentPoints: currentPoints + points,
+      };
 
-    onClose();
+      await updateCardToIndexedDB(updateCard);
+      setCurrentCardData(updateCard);
+      onClose();
+    } catch (error) {
+      console.error(error);
+      showToast(toast, '新增點數失敗，請稍後再試。', ALERT_STATUS.ERROR);
+    }
   };
 
   return (
