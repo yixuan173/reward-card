@@ -1,19 +1,28 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Image, Tag, TagLabel } from '@chakra-ui/react';
 
 import type { CardData } from '@type/common';
-import { getItemFromLocalStorage } from '@util/localStorage';
-import { LOCAL_STORAGE_KEYS } from '@constants/index';
 import Header from '@components/Header';
+import { getCardListFromIndexedDB } from '@util/indexedDB';
 
 const RewardCardList = () => {
-  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
+  const [cardList, setCardList] = useState<CardData[]>([]);
+
+  const getCardList = async () => {
+    const cardList = await getCardListFromIndexedDB();
+    setCardList(cardList);
+  };
+
+  useEffect(() => {
+    getCardList();
+  }, []);
 
   return (
     <div className="flex flex-col items-center h-screen mb-12">
       <Header />
       <section className="mt-12 w-full grid grid-cols-2 gap-8 px-6 pb-8 max-w-lg">
-        {rewardCardList.map(({ id, title, currentPoints, cardImage }: CardData) => (
+        {cardList.map(({ id, title, currentPoints, cardImage }: CardData) => (
           <Link to={`/${id}`} key={id}>
             <div className="w-full relative flex flex-col items-center">
               <Image
