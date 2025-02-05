@@ -1,24 +1,27 @@
 import type { CardData } from '@type/common';
 import { Image, Text, useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
-import { getItemFromLocalStorage } from '@util/localStorage';
-import { LOCAL_STORAGE_KEYS } from '@constants/index';
 import Header from '@components/Header';
-
-const getInitialCardData = (cardId: string) => {
-  const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST);
-  return rewardCardList.find((card: CardData) => card.id === cardId);
-};
+import { getCardFromIndexedDB } from '@util/indexedDB';
 
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [currentCardData, setCurrentCardData] = useState<CardData>(getInitialCardData(cardId));
-  const { totalPoints, currentPoints, pointImage, cardHeaderImage } = currentCardData || {};
+  const [currentCardData, setCurrentCardData] = useState<CardData | null>(null);
+  const { totalPoints = 0, currentPoints = 0, pointImage, cardHeaderImage } = currentCardData || {};
+
+  const getCardData = async (cardId: string) => {
+    const card = await getCardFromIndexedDB(cardId);
+    setCurrentCardData(card);
+  };
+
+  useEffect(() => {
+    getCardData(cardId);
+  }, [cardId]);
 
   const getPointElements = () => {
     return Array.from({ length: totalPoints }, (_, index) => (
