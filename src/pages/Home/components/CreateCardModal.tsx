@@ -15,9 +15,9 @@ import { useState } from 'react';
 import type { CardData, BaseModalProps } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
-import { getItemFromLocalStorage, setItemToLocalStorage } from '@util/localStorage';
-import { ALERT_STATUS, LOCAL_STORAGE_KEYS } from '@constants/index';
+import { ALERT_STATUS } from '@constants/index';
 import { showToast } from '@util/toast';
+import { addCardToIndexedDB } from '@util/indexedDB';
 
 const initialCardData: CardData = {
   id: '',
@@ -36,7 +36,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
   const [cardData, setCardData] = useState<CardData>(initialCardData);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleCreateRewardCard = () => {
+  const handleCreate = async () => {
     if (!validateCardForm(cardData, setErrors)) return;
 
     try {
@@ -45,9 +45,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
         id: crypto.randomUUID(),
       } as CardData;
 
-      const rewardCardList = getItemFromLocalStorage(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST) as CardData[];
-      setItemToLocalStorage<CardData[]>(LOCAL_STORAGE_KEYS.REWARD_CARD_LIST, [...rewardCardList, newCard]);
-
+      await addCardToIndexedDB(newCard);
       setCardData(initialCardData);
       showToast(toast, '集點卡新增成功！！', ALERT_STATUS.SUCCESS);
       onClose();
@@ -72,7 +70,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
           <Button mr={3} onClick={onClose}>
             取消
           </Button>
-          <Button colorScheme="pink" onClick={handleCreateRewardCard}>
+          <Button colorScheme="pink" onClick={handleCreate}>
             新增
           </Button>
         </ModalFooter>

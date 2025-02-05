@@ -51,12 +51,8 @@ export const getCardFromIndexedDB = async (id: string): Promise<CardData | null>
  * @returns {Promise<void>} A promise that resolves when the card has been added to the IndexedDB.
  */
 export const addCardToIndexedDB = async (card: CardData): Promise<void> => {
-  try {
-    const db = await dbPromise;
-    await db.add(INDEXEDDB_STORES.CARD_LIST, card);
-  } catch (error) {
-    console.error(error);
-  }
+  const db = await dbPromise;
+  await db.add(INDEXEDDB_STORES.CARD_LIST, card);
 };
 
 /**
