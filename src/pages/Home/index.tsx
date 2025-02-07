@@ -22,7 +22,7 @@ const Home = () => {
   const handleCreateCard = async () => {
     const isExceedCardMaxCount = await checkIsExceedCardMaxCount();
     if (isExceedCardMaxCount) {
-      showToast(toast, '已達最大集點卡數量(6張)，無法繼續新增。', ALERT_STATUS.WARNING);
+      showToast(toast, `已達最大集點卡數量(${MAX_CARD_COUNT}張)，無法繼續新增。`, ALERT_STATUS.WARNING);
       return;
     }
     onOpen();
