@@ -38,12 +38,11 @@ const RewardCard = () => {
         {currentPoints > index && (
           <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex">
             <Image
-              src={pointImageUrl}
-              fallbackSrc="./images/point.webp"
+              src={pointImageUrl || './images/point.webp'}
               alt="point"
               borderRadius="full"
               objectFit="cover"
-              className="-rotate-[30deg]"
+              className="-rotate-[30deg] w-full"
             />
           </div>
         )}
@@ -76,8 +75,7 @@ const RewardCard = () => {
               }}
             >
               <Image
-                src={cardHeaderImageUrl}
-                fallbackSrc="./images/cardHeader.gif"
+                src={cardHeaderImageUrl || './images/cardHeader.gif'}
                 alt="card-header-picture"
                 objectFit="cover"
                 className="w-full max-h-[200px]"

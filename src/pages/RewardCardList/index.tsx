@@ -32,8 +32,7 @@ const RewardCardList = () => {
             <Link to={`/${id}`} key={id}>
               <div className="w-full relative flex flex-col items-center">
                 <Image
-                  src={getImageUrl(cardImage)}
-                  fallbackSrc="./images/card.webp"
+                  src={getImageUrl(cardImage) || './images/card.webp'}
                   alt={title}
                   objectFit="cover"
                   className="w-full h-64"
