@@ -2,11 +2,10 @@ import { Button, Stack, useDisclosure, useToast, Box, Link, Image } from '@chakr
 import { useNavigate } from 'react-router-dom';
 
 import CreateCardModal from './components/CreateCardModal';
-import { ALERT_STATUS } from '@constants/index';
+import { ALERT_STATUS, MAX_CARD_COUNT } from '@constants/index';
 import { showToast } from '@util/toast';
 import { getCardListFromIndexedDB } from '@/util/indexedDB';
 
-const MAX_CARD_COUNT = 6;
 const GITHUB_LINK = 'https://github.com/yixuan173/reward-card';
 
 const Home = () => {

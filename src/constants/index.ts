@@ -11,3 +11,5 @@ export const ALERT_STATUS = {
   ERROR: 'error',
   LOADING: 'loading',
 } as const;
+
+export const MAX_CARD_COUNT = 10;
