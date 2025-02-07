@@ -5,6 +5,7 @@ import { Image, Tag, TagLabel } from '@chakra-ui/react';
 import type { CardData } from '@type/common';
 import Header from '@components/Header';
 import { getCardListFromIndexedDB } from '@util/indexedDB';
+import getImageUrl from '@/util/getImageUrl';
 
 const RewardCardList = () => {
   const [cardList, setCardList] = useState<CardData[]>([]);
@@ -26,7 +27,7 @@ const RewardCardList = () => {
           <Link to={`/${id}`} key={id}>
             <div className="w-full relative flex flex-col items-center">
               <Image
-                src={cardImage}
+                src={getImageUrl(cardImage)}
                 fallbackSrc="./images/card.webp"
                 alt={title}
                 objectFit="cover"

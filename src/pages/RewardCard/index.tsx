@@ -1,18 +1,21 @@
-import type { CardData } from '@type/common';
 import { Image, Text, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import type { CardData } from '@type/common';
 import AddPointsModal from './components/AddPointsModal';
 import ActionButtons from './components/ActionButtons';
 import Header from '@components/Header';
 import { getCardFromIndexedDB } from '@util/indexedDB';
+import getImageUrl from '@util/getImageUrl';
 
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentCardData, setCurrentCardData] = useState<CardData | null>(null);
-  const { totalPoints = 0, currentPoints = 0, pointImage, cardHeaderImage } = currentCardData || {};
+  const { totalPoints = 0, currentPoints = 0, pointImage = null, cardHeaderImage = null } = currentCardData || {};
+  const pointImageUrl = getImageUrl(pointImage);
+  const cardHeaderImageUrl = getImageUrl(cardHeaderImage);
 
   const getCardData = async (cardId: string) => {
     const card = await getCardFromIndexedDB(cardId);
@@ -35,7 +38,7 @@ const RewardCard = () => {
         {currentPoints > index && (
           <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex">
             <Image
-              src={pointImage}
+              src={pointImageUrl}
               fallbackSrc="./images/point.webp"
               alt="point"
               borderRadius="full"
@@ -73,7 +76,7 @@ const RewardCard = () => {
               }}
             >
               <Image
-                src={cardHeaderImage}
+                src={cardHeaderImageUrl}
                 fallbackSrc="./images/cardHeader.gif"
                 alt="card-header-picture"
                 objectFit="cover"
