@@ -26,6 +26,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import ImageUpload from './ImageUpload';
 
 const initialRedemptionData: RedemptionData = {
   id: '',
@@ -33,10 +34,16 @@ const initialRedemptionData: RedemptionData = {
   points: 1,
 };
 
+/**
+ * Checks if a value is a change event object.
+ *
+ * @param value A value of type `React.ChangeEvent<HTMLInputElement> | string | number | File`.
+ * @returns `true` if the value is a change event object, `false` otherwise.
+ */
 const isChangeEvent = (
-  e: React.ChangeEvent<HTMLInputElement> | string | number,
-): e is React.ChangeEvent<HTMLInputElement> => {
-  return typeof e === 'object' && 'target' in e;
+  value: React.ChangeEvent<HTMLInputElement> | string | number | File,
+): value is React.ChangeEvent<HTMLInputElement> => {
+  return typeof value === 'object' && 'target' in value;
 };
 
 interface CardFormProps {
@@ -82,13 +89,13 @@ const CardForm: React.FC<CardFormProps> = (props) => {
   };
 
   const handleChange = <T,>(
-    e: React.ChangeEvent<HTMLInputElement> | string | number,
+    value: React.ChangeEvent<HTMLInputElement> | string | number | File,
     key: keyof T,
     setState: React.Dispatch<React.SetStateAction<T>>,
   ): void => {
     setState((prev) => ({
       ...prev,
-      [key]: isChangeEvent(e) ? e.target.value : e,
+      [key]: isChangeEvent(value) ? value.target.value : value,
     }));
     setErrors({});
   };
@@ -149,31 +156,25 @@ const CardForm: React.FC<CardFormProps> = (props) => {
 
       <FormControl mt={6}>
         <FormLabel>卡片列表縮圖：</FormLabel>
-        <Input
-          onChange={(e) => handleChange<CardData>(e, 'cardImage', setCardData)}
-          name="cardImage"
-          value={cardImage}
-          placeholder="請填入圖片網址"
+        <ImageUpload
+          setImageData={(file: File) => handleChange<CardData>(file, 'cardImage', setCardData)}
+          image={cardImage}
         />
       </FormControl>
 
       <FormControl mt={6}>
         <FormLabel>卡片置頂圖：</FormLabel>
-        <Input
-          onChange={(e) => handleChange<CardData>(e, 'cardHeaderImage', setCardData)}
-          name="cardHeaderImage"
-          value={cardHeaderImage}
-          placeholder="請填入圖片網址"
+        <ImageUpload
+          setImageData={(file: File) => handleChange<CardData>(file, 'cardHeaderImage', setCardData)}
+          image={cardHeaderImage}
         />
       </FormControl>
 
       <FormControl mt={6}>
         <FormLabel>點數圖示：</FormLabel>
-        <Input
-          onChange={(e) => handleChange<CardData>(e, 'pointImage', setCardData)}
-          name="pointImage"
-          value={pointImage}
-          placeholder="請填入圖片網址"
+        <ImageUpload
+          setImageData={(file: File) => handleChange<CardData>(file, 'pointImage', setCardData)}
+          image={pointImage}
         />
       </FormControl>
 

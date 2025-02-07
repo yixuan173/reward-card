@@ -21,9 +21,9 @@ import { addCardToIndexedDB } from '@util/indexedDB';
 
 const initialCardData: CardData = {
   id: '',
-  cardHeaderImage: '',
-  pointImage: '',
-  cardImage: '',
+  cardHeaderImage: null,
+  pointImage: null,
+  cardImage: null,
   currentPoints: 0,
   title: '',
   totalPoints: 10,
