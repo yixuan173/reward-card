@@ -1,5 +1,5 @@
 import type { CardData, RedemptionData } from '@type/common';
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, InfoIcon } from '@chakra-ui/icons';
 import {
   Button,
   Flex,
@@ -23,6 +23,7 @@ import {
   Td,
   Th,
   Thead,
+  Tooltip,
   Tr,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -155,7 +156,19 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       )}
 
       <FormControl mt={6}>
-        <FormLabel>卡片列表縮圖：</FormLabel>
+        <FormLabel className="flex items-center">
+          <Tooltip hasArrow label={<img src="./images/card-example.webp" />} bg="gray.300">
+            <IconButton
+              aria-label="Image-Info"
+              size="sm"
+              colorScheme="white"
+              color="gray.600"
+              className="-ml-1 -mr-1 mb-[2px]"
+              icon={<InfoIcon />}
+            />
+          </Tooltip>
+          卡片列表縮圖：
+        </FormLabel>
         <ImageUpload
           setImageData={(file: File) => handleChange<CardData>(file, 'cardImage', setCardData)}
           image={cardImage}
@@ -163,7 +176,19 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       </FormControl>
 
       <FormControl mt={6}>
-        <FormLabel>卡片置頂圖：</FormLabel>
+        <FormLabel className="flex items-center">
+          <Tooltip hasArrow label={<img src="./images/cardHeader-example.webp" />} bg="gray.300">
+            <IconButton
+              aria-label="Image-Info"
+              size="sm"
+              colorScheme="white"
+              color="gray.600"
+              className="-ml-1 -mr-1 mb-[2px]"
+              icon={<InfoIcon />}
+            />
+          </Tooltip>
+          卡片置頂圖：
+        </FormLabel>
         <ImageUpload
           setImageData={(file: File) => handleChange<CardData>(file, 'cardHeaderImage', setCardData)}
           image={cardHeaderImage}
@@ -171,7 +196,19 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       </FormControl>
 
       <FormControl mt={6}>
-        <FormLabel>點數圖示：</FormLabel>
+        <FormLabel className="flex items-center">
+          <Tooltip hasArrow label={<img src="./images/point-example.webp" />} bg="gray.300">
+            <IconButton
+              aria-label="Image-Info"
+              size="sm"
+              colorScheme="white"
+              color="gray.600"
+              className="-ml-1 -mr-1 mb-[2px]"
+              icon={<InfoIcon />}
+            />
+          </Tooltip>
+          點數圖示：
+        </FormLabel>
         <ImageUpload
           setImageData={(file: File) => handleChange<CardData>(file, 'pointImage', setCardData)}
           image={pointImage}
