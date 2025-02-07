@@ -27,7 +27,7 @@ const RewardCardList = () => {
         <span className="font-bold text-pink-600 text-lg">
           卡片數量：{cardList.length} / {MAX_CARD_COUNT}
         </span>
-        <div className="grid grid-cols-2 gap-8 mt-1">
+        <div className="grid grid-cols-2 gap-8 mt-2">
           {cardList.map(({ id, title, currentPoints, cardImage }: CardData) => (
             <Link to={`/${id}`} key={id}>
               <div className="w-full relative flex flex-col items-center">
