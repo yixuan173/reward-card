@@ -64,11 +64,13 @@ const CardForm: React.FC<CardFormProps> = (props) => {
   const validateRedemptionForm = (): boolean => {
     const newErrors: { [key in keyof RedemptionData]?: string } = {};
 
-    if (!content.trim()) newErrors.content = '請填寫兌換內容';
+    if (!content.trim()) {
+      newErrors.content = '請填寫兌換內容';
+      setErrors((prev) => ({ ...prev, ...newErrors }));
+      return false;
+    }
 
-    setErrors((prev) => ({ ...prev, ...newErrors }));
-
-    return Object.keys(newErrors).length === 0;
+    return true;
   };
 
   const handleCreateRedemption = (): void => {
