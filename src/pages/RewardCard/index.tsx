@@ -1,4 +1,4 @@
-import { Image, Text, useDisclosure } from '@chakra-ui/react';
+import { Image, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import ActionButtons from './components/ActionButtons';
 import Header from '@components/Header';
 import { getCardFromIndexedDB } from '@util/indexedDB';
 import getImageUrl from '@util/getImageUrl';
+import Points from './components/Points';
 
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
@@ -25,30 +26,6 @@ const RewardCard = () => {
   useEffect(() => {
     getCardData(cardId);
   }, [cardId]);
-
-  const getPointElements = () => {
-    return Array.from({ length: totalPoints }, (_, index) => (
-      <div
-        key={index}
-        className="w-14 h-14 border-solid border-2 rounded-xl border-pink-500 flex items-center justify-center relative bg-pink-100/50"
-      >
-        <Text fontSize="xl" as="b" color="pink.700" opacity={0.6}>
-          {index + 1}
-        </Text>
-        {currentPoints > index && (
-          <div className="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex">
-            <Image
-              src={pointImageUrl || './images/point.webp'}
-              alt="point"
-              borderRadius="full"
-              objectFit="cover"
-              className="-rotate-[30deg] w-full"
-            />
-          </div>
-        )}
-      </div>
-    ));
-  };
 
   return (
     <div className="flex flex-col items-center h-screen">
@@ -80,7 +57,9 @@ const RewardCard = () => {
                 objectFit="cover"
                 className="w-full max-h-[200px]"
               />
-              <div className="grid grid-cols-5 gap-1 mt-3">{getPointElements()}</div>
+              <div className="grid grid-cols-5 gap-1 mt-3">
+                <Points totalPoints={totalPoints} currentPoints={currentPoints} pointImageUrl={pointImageUrl} />
+              </div>
               <AddPointsModal
                 isOpen={isOpen}
                 onClose={onClose}

@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = (props) => {
       <div className="w-full relative flex flex-col items-center">
         <div className="relative">
           <div
-            className={`absolute top-0 left-0 w-full h-64 bg-gray-200 animate-pulse ${loading ? 'block' : 'hidden'}`}
+            className={`absolute top-0 left-0 w-full h-64 bg-pink-200 animate-pulse ${loading ? 'block' : 'hidden'}`}
           />
           <Image
             src={getImageUrl(cardImage) || './images/card.webp'}
