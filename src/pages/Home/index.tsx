@@ -1,10 +1,12 @@
-import { Button, Stack, useDisclosure, useToast, Box, Link, Image } from '@chakra-ui/react';
+import { Button, Stack, useDisclosure, useToast, Box, Link, Image, Spinner } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-import CreateCardModal from './components/CreateCardModal';
 import { ALERT_STATUS, IMAGES_PATH, MAX_CARD_COUNT } from '@constants/index';
 import { showToast } from '@util/toast';
-import { getCardListFromIndexedDB } from '@/util/indexedDB';
+import { getCardListFromIndexedDB } from '@util/indexedDB';
+
+const CreateCardModal = lazy(() => import('./components/CreateCardModal'));
 
 const GITHUB_LINK = 'https://github.com/yixuan173/reward-card';
 const GITHUB_LOGO_PATH = `${IMAGES_PATH}/logo-github.svg`;
@@ -46,13 +48,18 @@ const Home = () => {
           <Stack spacing="20px">
             <Button colorScheme="pink" size="lg" onClick={handleCreateCard}>
               新增集點卡
+              {isOpen && <Spinner size="sm" speed="0.7s" ml={2} />}
             </Button>
             <Button colorScheme="pink" size="lg" variant="outline" onClick={handleViewRewardCardList}>
               查看集點卡
             </Button>
           </Stack>
         </section>
-        <CreateCardModal isOpen={isOpen} onClose={onClose} />
+        {isOpen && (
+          <Suspense fallback={null}>
+            <CreateCardModal isOpen={isOpen} onClose={onClose} />
+          </Suspense>
+        )}
       </div>
       <Box as="footer" py="4" textAlign="center" className="flex justify-center items-center">
         <span>2025</span>
