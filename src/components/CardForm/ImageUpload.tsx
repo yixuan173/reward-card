@@ -3,19 +3,32 @@ import { Image } from '@chakra-ui/react';
 import React from 'react';
 
 import getImageUrl from '@util/getImageUrl';
+import type { ImageData } from '@type/common';
 
 interface ImageUploadProps {
-  setImageData: (file: File) => void;
-  image: File | null;
+  setImageData: (data: ImageData) => void;
+  image: ImageData;
 }
 const ImageUpload: React.FC<ImageUploadProps> = (props) => {
   const { setImageData, image } = props;
   const imageUrl = getImageUrl(image);
 
+  const handleSetData = (selectedFile: File): void => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBufferImg = reader.result as ArrayBuffer;
+      setImageData({
+        buffer: arrayBufferImg,
+        type: selectedFile.type,
+      });
+    };
+    reader.readAsArrayBuffer(selectedFile);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setImageData(selectedFile);
+      handleSetData(selectedFile);
     }
   };
 

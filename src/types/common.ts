@@ -4,15 +4,20 @@ export interface RedemptionData {
   points: number;
 }
 
+export interface ImageData {
+  buffer: ArrayBuffer | null;
+  type: string;
+}
+
 export interface CardData {
   id: string;
   title: string;
   totalPoints: number;
   currentPoints: number;
   redemptionList: RedemptionData[];
-  cardHeaderImage: File | null;
-  pointImage: File | null;
-  cardImage: File | null;
+  cardHeaderImage: ImageData;
+  pointImage: ImageData;
+  cardImage: ImageData;
 }
 
 export interface BaseModalProps {

@@ -1,4 +1,4 @@
-import type { CardData, RedemptionData } from '@type/common';
+import type { CardData, ImageData, RedemptionData } from '@type/common';
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -38,11 +38,11 @@ const initialRedemptionData: RedemptionData = {
 /**
  * Checks if a value is a change event object.
  *
- * @param value A value of type `React.ChangeEvent<HTMLInputElement> | string | number | File`.
+ * @param value A value of type `React.ChangeEvent<HTMLInputElement> | string | number | ImageData`.
  * @returns `true` if the value is a change event object, `false` otherwise.
  */
 const isChangeEvent = (
-  value: React.ChangeEvent<HTMLInputElement> | string | number | File,
+  value: React.ChangeEvent<HTMLInputElement> | string | number | ImageData,
 ): value is React.ChangeEvent<HTMLInputElement> => {
   return typeof value === 'object' && 'target' in value;
 };
@@ -92,7 +92,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
   };
 
   const handleChange = <T,>(
-    value: React.ChangeEvent<HTMLInputElement> | string | number | File,
+    value: React.ChangeEvent<HTMLInputElement> | string | number | ImageData,
     key: keyof T,
     setState: React.Dispatch<React.SetStateAction<T>>,
   ): void => {
@@ -160,7 +160,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       <FormControl mt={6}>
         <ImageLabel title="卡片列表縮圖" imgUrl="./images/card-example.webp" />
         <ImageUpload
-          setImageData={(file: File) => handleChange<CardData>(file, 'cardImage', setCardData)}
+          setImageData={(data: ImageData) => handleChange<CardData>(data, 'cardImage', setCardData)}
           image={cardImage}
         />
       </FormControl>
@@ -168,7 +168,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       <FormControl mt={6}>
         <ImageLabel title="卡片置頂縮圖" imgUrl="./images/cardHeader-example.webp" />
         <ImageUpload
-          setImageData={(file: File) => handleChange<CardData>(file, 'cardHeaderImage', setCardData)}
+          setImageData={(data: ImageData) => handleChange<CardData>(data, 'cardHeaderImage', setCardData)}
           image={cardHeaderImage}
         />
       </FormControl>
@@ -176,7 +176,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       <FormControl mt={6}>
         <ImageLabel title="點數圖示" imgUrl="./images/point-example.webp" />
         <ImageUpload
-          setImageData={(file: File) => handleChange<CardData>(file, 'pointImage', setCardData)}
+          setImageData={(data: ImageData) => handleChange<CardData>(data, 'pointImage', setCardData)}
           image={pointImage}
         />
       </FormControl>

@@ -35,6 +35,7 @@ const Points: React.FC<PointsProps> = (props) => {
             src={pointImageUrl || './images/point.webp'}
             alt="point"
             borderRadius="full"
+            objectFit="cover"
             className={`-rotate-[30deg] w-full ${loading ? 'opacity-0' : 'opacity-100'}`}
             onLoad={onImgLoad}
           />
