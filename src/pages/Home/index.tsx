@@ -2,11 +2,12 @@ import { Button, Stack, useDisclosure, useToast, Box, Link, Image } from '@chakr
 import { useNavigate } from 'react-router-dom';
 
 import CreateCardModal from './components/CreateCardModal';
-import { ALERT_STATUS, MAX_CARD_COUNT } from '@constants/index';
+import { ALERT_STATUS, IMAGES_PATH, MAX_CARD_COUNT } from '@constants/index';
 import { showToast } from '@util/toast';
 import { getCardListFromIndexedDB } from '@/util/indexedDB';
 
 const GITHUB_LINK = 'https://github.com/yixuan173/reward-card';
+const GITHUB_LOGO_PATH = `${IMAGES_PATH}/logo-github.svg`;
 
 const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +57,7 @@ const Home = () => {
       <Box as="footer" py="4" textAlign="center" className="flex justify-center items-center">
         <span>2025</span>
         <Link href={GITHUB_LINK} isExternal ml="2">
-          <Image src="./images/logo-github.svg" boxSize="24px" alt="GitHub Logo" />
+          <Image src={GITHUB_LOGO_PATH} boxSize="24px" alt="GitHub Logo" />
         </Link>
       </Box>
     </div>

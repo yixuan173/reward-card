@@ -13,3 +13,6 @@ export const ALERT_STATUS = {
 } as const;
 
 export const MAX_CARD_COUNT = 10;
+
+const SITE_URL = 'https://yixuan173.github.io/reward-card';
+export const IMAGES_PATH = `${SITE_URL}/images`;

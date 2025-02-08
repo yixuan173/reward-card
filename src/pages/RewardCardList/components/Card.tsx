@@ -4,6 +4,7 @@ import { Image, Tag, TagLabel } from '@chakra-ui/react';
 
 import getImageUrl from '@util/getImageUrl';
 import type { ImageData } from '@type/common';
+import { IMAGES_PATH } from '@constants/index';
 
 interface CardProps {
   id: string;
@@ -11,6 +12,8 @@ interface CardProps {
   currentPoints: number;
   cardImage: ImageData;
 }
+
+const DEFAULT_CARD_PATH = `${IMAGES_PATH}/card.webp`;
 
 const Card: React.FC<CardProps> = (props) => {
   const { id, title, currentPoints, cardImage } = props;
@@ -30,7 +33,7 @@ const Card: React.FC<CardProps> = (props) => {
             className={`absolute top-0 left-0 w-full h-64 bg-pink-200 animate-pulse ${loading ? 'block' : 'hidden'}`}
           />
           <Image
-            src={getImageUrl(cardImage) || './images/card.webp'}
+            src={getImageUrl(cardImage, DEFAULT_CARD_PATH)}
             alt={title}
             objectFit="cover"
             className={`w-full h-64 ${loading ? 'opacity-0' : 'opacity-100'}`}

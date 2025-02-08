@@ -28,6 +28,11 @@ import {
 import { useState } from 'react';
 import ImageUpload from './ImageUpload';
 import ImageLabel from './ImageLabel';
+import { IMAGES_PATH } from '@constants/index';
+
+const CARD_EXAMPLE_PATH = `${IMAGES_PATH}/card-example.webp`;
+const CARD_HEADER_EXAMPLE_PATH = `${IMAGES_PATH}/cardHeader-example.webp`;
+const POINT_EXAMPLE_PATH = `${IMAGES_PATH}/point-example.webp`;
 
 const initialRedemptionData: RedemptionData = {
   id: '',
@@ -158,7 +163,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       )}
 
       <FormControl mt={6}>
-        <ImageLabel title="卡片列表縮圖" imgUrl="./images/card-example.webp" />
+        <ImageLabel title="卡片列表縮圖" imgUrl={CARD_EXAMPLE_PATH} />
         <ImageUpload
           setImageData={(data: ImageData) => handleChange<CardData>(data, 'cardImage', setCardData)}
           image={cardImage}
@@ -166,7 +171,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       </FormControl>
 
       <FormControl mt={6}>
-        <ImageLabel title="卡片置頂縮圖" imgUrl="./images/cardHeader-example.webp" />
+        <ImageLabel title="卡片置頂縮圖" imgUrl={CARD_HEADER_EXAMPLE_PATH} />
         <ImageUpload
           setImageData={(data: ImageData) => handleChange<CardData>(data, 'cardHeaderImage', setCardData)}
           image={cardHeaderImage}
@@ -174,7 +179,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
       </FormControl>
 
       <FormControl mt={6}>
-        <ImageLabel title="點數圖示" imgUrl="./images/point-example.webp" />
+        <ImageLabel title="點數圖示" imgUrl={POINT_EXAMPLE_PATH} />
         <ImageUpload
           setImageData={(data: ImageData) => handleChange<CardData>(data, 'pointImage', setCardData)}
           image={pointImage}

@@ -9,14 +9,16 @@ import Header from '@components/Header';
 import { getCardFromIndexedDB } from '@util/indexedDB';
 import getImageUrl from '@util/getImageUrl';
 import Points from './components/Points';
+import { IMAGES_PATH } from '@constants/index';
+
+const DEFAULT_CARD_HEADER_PATH = `${IMAGES_PATH}/cardHeader.webp`;
 
 const RewardCard = () => {
   const { cardId = '' } = useParams<{ cardId: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentCardData, setCurrentCardData] = useState<CardData | null>(null);
   const { totalPoints = 0, currentPoints = 0, pointImage = null, cardHeaderImage = null } = currentCardData || {};
-  const pointImageUrl = getImageUrl(pointImage);
-  const cardHeaderImageUrl = getImageUrl(cardHeaderImage);
+  const cardHeaderImageUrl = getImageUrl(cardHeaderImage, DEFAULT_CARD_HEADER_PATH);
 
   const getCardData = async (cardId: string) => {
     const card = await getCardFromIndexedDB(cardId);
@@ -52,13 +54,13 @@ const RewardCard = () => {
               }}
             >
               <Image
-                src={cardHeaderImageUrl || './images/cardHeader.gif'}
+                src={cardHeaderImageUrl}
                 alt="card-header-picture"
                 objectFit="cover"
                 className="w-full max-h-[200px]"
               />
               <div className="grid grid-cols-5 gap-1 mt-3">
-                <Points totalPoints={totalPoints} currentPoints={currentPoints} pointImageUrl={pointImageUrl} />
+                <Points totalPoints={totalPoints} currentPoints={currentPoints} pointImage={pointImage} />
               </div>
               <AddPointsModal
                 isOpen={isOpen}

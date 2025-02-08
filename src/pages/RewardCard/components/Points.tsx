@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Image, Text } from '@chakra-ui/react';
+import { IMAGES_PATH } from '@constants/index';
+import type { ImageData } from '@type/common';
+import getImageUrl from '@util/getImageUrl';
 
 interface PointsProps {
   totalPoints: number;
   currentPoints: number;
-  pointImageUrl: string;
+  pointImage: ImageData | null;
 }
+
+const DEFAULT_POINT_PATH = `${IMAGES_PATH}/point.webp`;
 const Points: React.FC<PointsProps> = (props) => {
-  const { totalPoints, currentPoints, pointImageUrl } = props;
+  const { totalPoints, currentPoints, pointImage } = props;
   const [loading, setLoading] = useState(true);
+  const pointImageUrl = getImageUrl(pointImage, DEFAULT_POINT_PATH);
 
   const onImgLoad = () => {
     setTimeout(() => {
@@ -32,7 +38,7 @@ const Points: React.FC<PointsProps> = (props) => {
             className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-[30deg] w-16 h-16  bg-pink-200 animate-pulse ${loading ? 'block' : 'hidden'}`}
           />
           <Image
-            src={pointImageUrl || './images/point.webp'}
+            src={pointImageUrl}
             alt="point"
             borderRadius="full"
             objectFit="cover"
