@@ -12,18 +12,23 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import type { CardData, BaseModalProps } from '@type/common';
+import type { CardData, BaseModalProps, ImageData } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
 import { ALERT_STATUS } from '@constants/index';
 import { showToast } from '@util/toast';
 import { addCardToIndexedDB } from '@util/indexedDB';
 
+const initialImageData: ImageData = {
+  buffer: null,
+  type: '',
+};
+
 const initialCardData: CardData = {
   id: '',
-  cardHeaderImage: null,
-  pointImage: null,
-  cardImage: null,
+  cardHeaderImage: initialImageData,
+  pointImage: initialImageData,
+  cardImage: initialImageData,
   currentPoints: 0,
   title: '',
   totalPoints: 10,
