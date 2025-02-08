@@ -1,5 +1,14 @@
 import { InfoIcon } from '@chakra-ui/icons';
-import { FormLabel, IconButton, Tooltip } from '@chakra-ui/react';
+import {
+  FormLabel,
+  IconButton,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+} from '@chakra-ui/react';
 import React from 'react';
 
 interface ImageLabelProps {
@@ -12,16 +21,27 @@ const ImageLabel: React.FC<ImageLabelProps> = (props) => {
 
   return (
     <FormLabel className="flex items-center">
-      <Tooltip hasArrow label={<img src={imgUrl} />} bg="gray.300">
-        <IconButton
-          aria-label="Image-Info"
-          size="sm"
-          colorScheme="white"
-          color="gray.600"
-          className="-ml-1 -mr-1 mb-[2px]"
-          icon={<InfoIcon />}
-        />
-      </Tooltip>
+      <Popover>
+        <PopoverTrigger>
+          <IconButton
+            aria-label="Image-Info"
+            size="sm"
+            colorScheme="white"
+            color="gray.600"
+            className="-ml-1 -mr-1 mb-[2px]"
+            icon={<InfoIcon />}
+          />
+        </PopoverTrigger>
+        <PopoverContent color="white" bg="gray.100" borderColor="gray.100">
+          <PopoverHeader pt={2} fontWeight="bold" border="0" color="black">
+            示意圖：
+          </PopoverHeader>
+          <PopoverArrow bg="gray.100" />
+          <PopoverBody>
+            <img src={imgUrl} />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
       {title}：
     </FormLabel>
   );
