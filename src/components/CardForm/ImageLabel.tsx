@@ -27,7 +27,7 @@ const ImageLabel: React.FC<ImageLabelProps> = (props) => {
             aria-label="Image-Info"
             size="sm"
             colorScheme="white"
-            color="gray.600"
+            color="pink.300"
             className="-ml-1 -mr-1 mb-[2px]"
             icon={<InfoIcon />}
           />
