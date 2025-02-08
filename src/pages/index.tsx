@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
+import { lazy } from 'react';
 
-import Home from '@pages/Home';
-import RewardCardList from '@pages/RewardCardList';
-import RewardCard from '@pages/RewardCard';
+const Home = lazy(() => import('@pages/Home'));
+const RewardCardList = lazy(() => import('@pages/RewardCardList'));
+const RewardCard = lazy(() => import('@pages/RewardCard'));
 
 const App = () => {
   return (
