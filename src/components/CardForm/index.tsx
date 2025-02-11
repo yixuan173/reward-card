@@ -1,4 +1,3 @@
-import type { CardData, ImageData, RedemptionData } from '@type/common';
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -26,9 +25,12 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+
 import ImageUpload from './ImageUpload';
 import ImageLabel from './ImageLabel';
-import { IMAGES_PATH } from '@constants/index';
+import { IMAGES_PATH, MODE } from '@constants/index';
+import type { CardFormProps } from '@type/components/cardForm';
+import type { CardData, ImageData, RedemptionData } from '@type/common';
 
 const CARD_EXAMPLE_PATH = `${IMAGES_PATH}/card-example.webp`;
 const CARD_HEADER_EXAMPLE_PATH = `${IMAGES_PATH}/cardHeader-example.webp`;
@@ -51,14 +53,6 @@ const isChangeEvent = (
 ): value is React.ChangeEvent<HTMLInputElement> => {
   return typeof value === 'object' && 'target' in value;
 };
-
-interface CardFormProps {
-  mode: 'create' | 'edit';
-  cardData: CardData;
-  setCardData: React.Dispatch<React.SetStateAction<CardData>>;
-  errors: { [key: string]: string };
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
-}
 
 const CardForm: React.FC<CardFormProps> = (props) => {
   const { cardData, setCardData, errors, setErrors, mode } = props;
@@ -125,7 +119,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
         )}
       </FormControl>
 
-      {mode === 'create' && (
+      {mode === MODE.CREATE && (
         <FormControl mt={6} isRequired>
           <FormLabel>總點數：</FormLabel>
           <Flex>
@@ -186,7 +180,7 @@ const CardForm: React.FC<CardFormProps> = (props) => {
         />
       </FormControl>
 
-      <FormControl mt={6} isRequired={mode === 'create'} isInvalid={!!errors.content}>
+      <FormControl mt={6} isRequired={mode === MODE.CREATE} isInvalid={!!errors.content}>
         <FormLabel>兌換清單：</FormLabel>
         <Input
           placeholder="請輸入兌換內容"

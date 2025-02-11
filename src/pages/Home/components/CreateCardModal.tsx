@@ -15,7 +15,7 @@ import { useState } from 'react';
 import type { CardData, BaseModalProps, ImageData } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
-import { ALERT_STATUS } from '@constants/index';
+import { ALERT_STATUS, MODE } from '@constants/index';
 import { showToast } from '@util/toast';
 import { addCardToIndexedDB } from '@util/indexedDB';
 
@@ -68,7 +68,13 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
         <ModalCloseButton />
 
         <ModalBody>
-          <CardForm mode="create" cardData={cardData} setCardData={setCardData} errors={errors} setErrors={setErrors} />
+          <CardForm
+            mode={MODE.CREATE}
+            cardData={cardData}
+            setCardData={setCardData}
+            errors={errors}
+            setErrors={setErrors}
+          />
         </ModalBody>
 
         <ModalFooter>

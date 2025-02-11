@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { Image, Text } from '@chakra-ui/react';
 import { IMAGES_PATH } from '@constants/index';
-import type { ImageData } from '@type/common';
-import getImageUrl from '@util/getImageUrl';
 
-interface PointsProps {
-  totalPoints: number;
-  currentPoints: number;
-  pointImage: ImageData | null;
-}
+import getImageUrl from '@util/getImageUrl';
+import type { PointsProps } from '@type/pages/rewardCard';
 
 const DEFAULT_POINT_PATH = `${IMAGES_PATH}/point.webp`;
 const Points: React.FC<PointsProps> = (props) => {

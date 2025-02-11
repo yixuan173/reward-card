@@ -3,12 +3,8 @@ import { Image } from '@chakra-ui/react';
 import React from 'react';
 
 import getImageUrl from '@util/getImageUrl';
-import type { ImageData } from '@type/common';
+import type { ImageUploadProps } from '@type/components/cardForm';
 
-interface ImageUploadProps {
-  setImageData: (data: ImageData) => void;
-  image: ImageData;
-}
 const ImageUpload: React.FC<ImageUploadProps> = (props) => {
   const { setImageData, image } = props;
   const imageUrl = getImageUrl(image);

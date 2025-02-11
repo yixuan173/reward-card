@@ -3,15 +3,8 @@ import { Link } from 'react-router-dom';
 import { Image, Tag, TagLabel } from '@chakra-ui/react';
 
 import getImageUrl from '@util/getImageUrl';
-import type { ImageData } from '@type/common';
 import { IMAGES_PATH } from '@constants/index';
-
-interface CardProps {
-  id: string;
-  title: string;
-  currentPoints: number;
-  cardImage: ImageData;
-}
+import type { CardProps } from '@type/pages/rewardCardList';
 
 const DEFAULT_CARD_PATH = `${IMAGES_PATH}/card.webp`;
 

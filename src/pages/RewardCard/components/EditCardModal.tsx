@@ -15,7 +15,7 @@ import CardForm from '@components/CardForm';
 import type { CardData } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
-import { ALERT_STATUS } from '@constants/index';
+import { ALERT_STATUS, MODE } from '@constants/index';
 import { showToast } from '@util/toast';
 import { updateCardToIndexedDB } from '@util/indexedDB';
 
@@ -53,7 +53,7 @@ const EditCardModal: React.FC<CardModalProps> = (props) => {
 
         <ModalBody>
           <CardForm
-            mode="edit"
+            mode={MODE.EDIT}
             cardData={currentCardData}
             setCardData={setCurrentCardData as React.Dispatch<React.SetStateAction<CardData>>}
             errors={errors}

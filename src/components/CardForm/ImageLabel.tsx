@@ -11,10 +11,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-interface ImageLabelProps {
-  title: string;
-  imgUrl: string;
-}
+import type { ImageLabelProps } from '@type/components/cardForm';
 
 const ImageLabel: React.FC<ImageLabelProps> = (props) => {
   const { title, imgUrl } = props;
