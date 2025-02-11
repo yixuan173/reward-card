@@ -2,9 +2,9 @@
 
 ## 專案介紹
 
-此專案是一個集點卡，旨在幫助各位情侶可以有一個簡易的集點卡介面，不用再擔心集點卡沒帶在身上，也不用擔心集點卡會不見，開始來設計你與他的專屬集點卡吧。
+此專案是一個集點卡，旨在建立一個簡易的集點卡介面，不用再擔心集點卡沒帶在身上，也不用擔心集點卡會不見，開始來製作你的專屬集點卡吧。
 
-集點卡資料統一儲存在 localStorage 裡面，因此要同裝置同瀏覽器才能讀取到集點卡資料。
+集點卡資料統一儲存在 indexedDB 裡面，因此要同裝置同瀏覽器才能讀取到集點卡資料。
 
 只針對手機進行設計，因此用桌機看會有很大機率跑版。
 
@@ -62,4 +62,4 @@ npm run dev
 
 ## 參考資料
 
-集點卡預設圖案皆採用 [韓國插畫師 Moonlab Studio](https://www.instagram.com/moonlab_studio/?utm_source=ig_embed&ig_rid=020cd368-3df6-4066-bf64-d3d514223a0f) 繪製的線條小狗。
+部分預設圖案採用 [韓國插畫師 Moonlab Studio](https://www.instagram.com/moonlab_studio/?utm_source=ig_embed&ig_rid=020cd368-3df6-4066-bf64-d3d514223a0f) 繪製的線條小狗。
