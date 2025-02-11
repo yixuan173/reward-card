@@ -24,3 +24,5 @@ export interface BaseModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export type Error = Partial<Record<keyof CardData | keyof RedemptionData, string>>;

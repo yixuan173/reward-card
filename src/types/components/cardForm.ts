@@ -1,12 +1,12 @@
 import { MODE } from '@constants/index';
-import type { ImageData, CardData } from '@type/common';
+import type { ImageData, CardData, Error } from '@type/common';
 
 export interface CardFormProps {
   mode: (typeof MODE)[keyof typeof MODE];
   cardData: CardData;
   setCardData: React.Dispatch<React.SetStateAction<CardData>>;
-  errors: { [key: string]: string };
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
+  errors: Error;
+  setErrors: React.Dispatch<React.SetStateAction<Error>>;
 }
 
 export interface ImageLabelProps {

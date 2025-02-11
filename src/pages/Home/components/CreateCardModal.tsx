@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import type { CardData, BaseModalProps, ImageData } from '@type/common';
+import type { CardData, BaseModalProps, ImageData, Error } from '@type/common';
 import CardForm from '@components/CardForm';
 import validateCardForm from '@util/validateCardForm';
 import { ALERT_STATUS, MODE } from '@constants/index';
@@ -39,7 +39,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
   const { isOpen, onClose } = props;
   const toast = useToast();
   const [cardData, setCardData] = useState<CardData>(initialCardData);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<Error>({});
 
   const handleCreate = async () => {
     if (!validateCardForm(cardData, setErrors)) return;

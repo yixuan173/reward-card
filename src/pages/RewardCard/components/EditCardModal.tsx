@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { WarningTwoIcon } from '@chakra-ui/icons';
 
 import CardForm from '@components/CardForm';
-import type { CardData } from '@type/common';
+import type { CardData, Error } from '@type/common';
 import type { CardModalProps } from '@type/pages/rewardCard';
 import validateCardForm from '@util/validateCardForm';
 import { ALERT_STATUS, MODE } from '@constants/index';
@@ -22,7 +22,7 @@ import { updateCardToIndexedDB } from '@util/indexedDB';
 const EditCardModal: React.FC<CardModalProps> = (props) => {
   const { isOpen, onClose, currentCardData, setCurrentCardData } = props;
   const toast = useToast();
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<Error>({});
 
   const handleSaveRewardCard = async () => {
     if (!validateCardForm(currentCardData, setErrors)) return;

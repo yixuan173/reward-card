@@ -1,9 +1,6 @@
-import type { CardData } from '@type/common';
+import type { CardData, Error } from '@type/common';
 
-const validateCardForm = (
-  cardData: CardData,
-  setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
-): boolean => {
+const validateCardForm = (cardData: CardData, setErrors: React.Dispatch<React.SetStateAction<Error>>): boolean => {
   const { title, redemptionList } = cardData;
   const newErrors: { [key in keyof CardData]?: string } = {};
 
