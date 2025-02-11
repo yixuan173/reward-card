@@ -9,12 +9,12 @@ import Card from './components/Card';
 const RewardCardList = () => {
   const [cardList, setCardList] = useState<CardData[]>([]);
 
-  const getCardList = async () => {
-    const cardList = await getCardListFromIndexedDB();
-    setCardList(cardList);
-  };
-
   useEffect(() => {
+    const getCardList = async () => {
+      const cardList = await getCardListFromIndexedDB();
+      setCardList(cardList);
+    };
+
     getCardList();
   }, []);
 

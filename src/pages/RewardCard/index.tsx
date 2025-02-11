@@ -1,5 +1,5 @@
 import { Image, useDisclosure } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import type { CardData } from '@type/common';
@@ -20,14 +20,14 @@ const RewardCard = () => {
   const { totalPoints = 0, currentPoints = 0, pointImage = null, cardHeaderImage = null } = currentCardData || {};
   const cardHeaderImageUrl = getImageUrl(cardHeaderImage, DEFAULT_CARD_HEADER_PATH);
 
-  const getCardData = useCallback(async () => {
-    const card = await getCardFromIndexedDB(cardId);
-    setCurrentCardData(card);
-  }, [cardId]);
-
   useEffect(() => {
+    const getCardData = async () => {
+      const card = await getCardFromIndexedDB(cardId);
+      setCurrentCardData(card);
+    };
+
     getCardData();
-  }, [getCardData]);
+  }, [cardId]);
 
   return (
     <div className="flex flex-col items-center h-screen">
