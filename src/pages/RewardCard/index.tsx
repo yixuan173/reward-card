@@ -1,5 +1,5 @@
 import { Image, useDisclosure } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import type { CardData } from '@type/common';
@@ -20,14 +20,14 @@ const RewardCard = () => {
   const { totalPoints = 0, currentPoints = 0, pointImage = null, cardHeaderImage = null } = currentCardData || {};
   const cardHeaderImageUrl = getImageUrl(cardHeaderImage, DEFAULT_CARD_HEADER_PATH);
 
-  const getCardData = async (cardId: string) => {
+  const getCardData = useCallback(async () => {
     const card = await getCardFromIndexedDB(cardId);
     setCurrentCardData(card);
-  };
+  }, [cardId]);
 
   useEffect(() => {
-    getCardData(cardId);
-  }, [cardId]);
+    getCardData();
+  }, [getCardData]);
 
   return (
     <div className="flex flex-col items-center h-screen">
@@ -45,21 +45,21 @@ const RewardCard = () => {
         ) : (
           <>
             <ActionButtons currentCardData={currentCardData} setCurrentCardData={setCurrentCardData} />
-            <div
-              className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center "
-              onClick={() => {
-                if (currentPoints < totalPoints) {
-                  onOpen();
-                }
-              }}
-            >
+            <div className="border-solid border-4 border-pink-500 rounded-xl p-2 flex flex-col items-center ">
               <Image
                 src={cardHeaderImageUrl}
                 alt="card-header-picture"
                 objectFit="cover"
                 className="w-full max-h-[200px]"
               />
-              <div className="grid grid-cols-5 gap-1 mt-3">
+              <div
+                className="grid grid-cols-5 gap-1 mt-3"
+                onClick={() => {
+                  if (currentPoints < totalPoints) {
+                    onOpen();
+                  }
+                }}
+              >
                 <Points totalPoints={totalPoints} currentPoints={currentPoints} pointImage={pointImage} />
               </div>
               <AddPointsModal
