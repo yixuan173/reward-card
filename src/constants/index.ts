@@ -9,6 +9,15 @@ export const MODE = {
   EDIT: 'edit',
 } as const;
 
+export const SORT_TYPE = {
+  TIME_ASC: 'timeASC',
+  TIME_DESC: 'timeDESC',
+  TOTAL_POINTS_ASC: 'totalPointsASC',
+  TOTAL_POINTS_DESC: 'totalPointsDESC',
+  CURRENT_POINTS_ASC: 'currentPointsASC',
+  CURRENT_POINTS_DESC: 'currentPointsDESC',
+} as const;
+
 export const ALERT_STATUS = {
   INFO: 'info',
   WARNING: 'warning',

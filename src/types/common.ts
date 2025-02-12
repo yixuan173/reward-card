@@ -1,3 +1,5 @@
+import { SORT_TYPE } from '@constants/index';
+
 export interface RedemptionData {
   id: string;
   content: string;
@@ -18,6 +20,7 @@ export interface CardData {
   cardHeaderImage: ImageData;
   pointImage: ImageData;
   cardImage: ImageData;
+  create: number;
 }
 
 export interface BaseModalProps {
@@ -26,3 +29,5 @@ export interface BaseModalProps {
 }
 
 export type Error = Partial<Record<keyof CardData | keyof RedemptionData, string>>;
+
+export type SortType = (typeof SORT_TYPE)[keyof typeof SORT_TYPE];

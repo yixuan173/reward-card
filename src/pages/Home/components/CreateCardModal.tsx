@@ -33,6 +33,7 @@ const initialCardData: CardData = {
   title: '',
   totalPoints: 10,
   redemptionList: [],
+  create: 0,
 };
 
 const CreateCardModal: React.FC<BaseModalProps> = (props) => {
@@ -48,6 +49,7 @@ const CreateCardModal: React.FC<BaseModalProps> = (props) => {
       const newCard = {
         ...cardData,
         id: crypto.randomUUID(),
+        create: Date.now(),
       } as CardData;
 
       await addCardToIndexedDB(newCard);
