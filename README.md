@@ -10,6 +10,10 @@
 
 ### DEMO 網頁[（前往）](https://yixuan173.github.io/reward-card/)
 
+### 影片展示畫面
+
+[![Youtube Demo Overview](https://img.youtube.com/vi/xK8mjGW1Opk/0.jpg)](https://youtube.com/shorts/xK8mjGW1Opk?feature=share)
+
 ## 技術
 
 此專案使用了以下技術和套件：
